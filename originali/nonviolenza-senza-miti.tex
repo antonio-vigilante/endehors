@@ -1,0 +1,235 @@
+
+\documentclass[12pt,oneside,openany]{book}
+\usepackage[paperwidth=150mm,paperheight=200mm,top=17mm,bottom=19mm,left=15mm,right=15mm,
+            headheight=14pt,headsep=6mm,footskip=10mm]{geometry}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{italian}
+\setmainfont{EBGaramond}[Extension=.otf, UprightFont=*-Regular, ItalicFont=*-Italic,
+  BoldFont=*-SemiBold, BoldItalicFont=*-SemiBoldItalic, Ligatures=TeX, Numbers=OldStyle]
+\newfontfamily\adventor{texgyreadventor}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold]
+\usepackage[protrusion=true,expansion=true,tracking=false,kerning=false,spacing=false]{microtype}
+\usepackage{xcolor}
+\definecolor{blu}{RGB}{53,74,121}
+\definecolor{grigio}{RGB}{95,95,95}
+\usepackage{graphicx}
+\usepackage[bottom,hang]{footmisc}
+\setlength{\footnotemargin}{1.2em}
+\counterwithout{footnote}{chapter}   % numerazione continua, come nell'edizione originale
+\setlength{\footnotesep}{0.8\baselineskip}
+\renewcommand{\footnotelayout}{\raggedright}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{fancyhdr}
+\usepackage[hidelinks,pdfusetitle,bookmarksnumbered=false]{hyperref}
+\usepackage{bookmark}
+\urlstyle{same}
+
+\linespread{1.1}
+\setlength{\parindent}{1.1em}
+\widowpenalty=10000 \clubpenalty=10000
+\raggedbottom
+\emergencystretch=1.5em
+
+% capitoli
+\titleformat{\chapter}[block]
+  {\raggedright\adventor\bfseries\Large\color{blu}\linespread{1.05}\selectfont}
+  {\thechapter.}{0.35em}{}
+\titleformat{name=\chapter,numberless}[block]
+  {\raggedright\adventor\bfseries\Large\color{blu}\linespread{1.05}\selectfont}{}{0pt}{}
+\titlespacing*{\chapter}{0pt}{6mm}{11mm}
+
+% indice
+% titoli a bandiera, con 2.5em liberi a destra; il numero di pagina arriva al margine
+\contentsmargin{0pt}
+\titlecontents{chapter}[0pt]{\addvspace{0.55em}\rightskip=2.5em plus 1fil\relax\parfillskip=-\rightskip}
+  {\thecontentslabel.\ }
+  {}
+  {\hfill\thecontentspage}[\addvspace{0pt}]
+
+% testatine
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[C]{\footnotesize\color{grigio}\textsc{\MakeLowercase{Nonviolenza senza miti}}}
+\fancyfoot[C]{\small\thepage}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}}
+
+\hypersetup{pdftitle={Nonviolenza senza miti}, pdfauthor={Antonio Vigilante}, pdflang={it}}
+
+
+\begin{document}
+
+\frontmatter
+
+\thispagestyle{empty}\pdfbookmark[0]{Copertina}{copertina}
+\newgeometry{margin=0pt}
+\noindent\makebox[\paperwidth][c]{\includegraphics[height=\paperheight,keepaspectratio]{C:/Users/anton/Desktop/Siti/endehors/sito/src/assets/copertine/nonviolenza-senza-miti.jpg}}
+\restoregeometry
+\clearpage
+
+\thispagestyle{empty}\pdfbookmark[0]{Frontespizio}{frontespizio}
+\begin{center}
+\vspace*{14mm}
+{\large\textsc{Antonio Vigilante}\par}
+\vspace{9mm}
+{\adventor\bfseries\Huge\color{blu}\linespread{1.0}\selectfont Nonviolenza senza miti\par}
+
+\vfill
+\includegraphics[height=17mm]{C:/Users/anton/Desktop/Siti/endehors/sito/src/assets/logo-endehors.png}\par
+\vspace{2.5mm}
+{\large\bfseries endehors\par}
+\vspace*{6mm}
+\end{center}
+\clearpage
+
+\thispagestyle{empty}
+\vspace*{\fill}
+{\footnotesize\raggedright\color{grigio}
+Edizione: luglio 2020.\par\smallskip
+Licenza CC BY 4.0 (\url{https://creativecommons.org/licenses/by/4.0/deed.it})\par\smallskip
+ISBN 9788835868170\par\smallskip
+DOI \href{https://doi.org/10.5281/zenodo.3957624}{10.5281/zenodo.3957624}\par\smallskip
+endehors · \url{https://endehors.example.org/libri/nonviolenza-senza-miti/}\par}
+\clearpage
+
+\pdfbookmark[0]{Indice}{indice}
+\thispagestyle{empty}
+\noindent{\adventor\bfseries\large\color{blu}Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\clearpage
+
+\mainmatter
+
+\chapter*{Prefazione}\addcontentsline{toc}{chapter}{Prefazione}
+
+È cosa frequente e tutt'altro che inopportuna che una nuova teoria o una nuova prassi siano accolte al tempo stesso dall'irrisione degli scettici e dall'entusiasmo degli adepti. Se l'irrisione preserva nella comunità una certa riserva di distacco critico, l'entusiasmo spesso acritico degli adepti consente a quella teoria ed a quella prassi di sviluppare le proprie potenzialità in un ambiente in qualche modo protetto. A questa prima fase, tuttavia, è bene che ne segua un'altra, ed è importante che tale evoluzione non avvenga con ritardo eccessivo. Occorre che quella teoria o prassi escano dall'ambiente protetto e si confrontino apertamente con chi vi si oppone, che a sua volta passerà dall'irrisione all'analisi critica attenta e, forse, rispettosa. È bene, anzi, che gli adepti stessi di quella nuova idea diventino i suoi critici. Il risultato di questa seconda fase sarà una più larga accettazione di quella idea nell'opinione pubblica, anche se in una forma meno entusiastica, più misurata.
+
+La nonviolenza non è probabilmente entrata ancora in questa seconda fase. Abbiamo avuto maestri grandissimi che hanno saggiato le potenzialità della nuova via mostrata al mondo da Gandhi, ma che, presi dalla loro opera pionieristica, raramente si sono soffermati a considerarne i limiti; ed abbiamo avuto ed abbiamo studiosi che, mossi da vera e propria venerazione per quei maestri, hanno pensato che fosse inopportuno discutere anche solo gli aspetti più vistosamente criticabili della loro opera. Sono sorti così i ``miti'' della nonviolenza. Non tutti, a dire il vero, sono miti in senso stretto. Diventa un mito, indubbiamente, il Gandhi infallibile custode di tutte le cose buone e giuste, più profeta e santo che politico, così lontano nella sua purezza ascetica eppure così vicino per la modernità ed il buon senso del suo pensiero, così come è anche mitica, probabilmente, una certa interpretazione della storia che vede in alcuni momenti cruciali del Novecento --- dalla lotta stessa di Gandhi alla crisi dei regimi comunisti dell'Est --- il trionfo della nonviolenza. In molti casi, tuttavia, più che di veri e propri miti si tratta di \emph{biases}, di scorciatoie intellettuali, di tesi non sufficientemente discusse. Chiamo mito, insomma, qualcosa che è molto vicino al dogma.
+
+Di seguito elenco, con un minimo di analisi critica, e con i limiti di un pamphlet, dieci di questi miti, condensati in affermazioni sulle quali è urgente, a mio avviso, riflettere e discutere.
+
+Questo libro è, in buona sostanza, un commento al seguente pensiero di Josif Brodskij: ``la più sicura difesa contro il Male è un individualismo estremo, l'originalità di pensiero, la bizzarria, perfino --- se volete --- l'eccentricità''.\footnote{Josif Brodskij, \emph{Il canto del pendolo}, Adelphi, Milano 1987, p.~12.}
+
+\setcounter{chapter}{1}\addtocounter{chapter}{-1}
+
+\chapter{La verità è forte, e per questo una prassi fondata sulla verità è una prassi vincente}
+
+La nonviolenza gandhiana si chiama Satyagraha, parola che approssimativamente si può tradurre con ``forza della verità''. La sua convinzione era che chi ha dalla sua la verità è destinato a vincere. Come è noto, per Gandhi la Verità e Dio sono la stessa cosa. La Verità è Dio, e questo vuol dire che anche l'ateo, nella misura in cui sostiene che ``Dio non esiste'' è una affermazione vera, è nella verità, e dunque in Dio. Ma si tratta di un sofisma. La Verità di cui parla Gandhi non è la semplice esattezza di una affermazione constatabile da tutti (``Oggi c'è il sole''), e non è nemmeno il risultato di un ragionamento che segua procedimenti logici universali, come il principio di non contraddizione o del terzo escluso. Per Gandhi la Verità può essere attinta solo attraverso un procedimento spirituale di riduzione di sé. Il nostro ego è ciò che fa ombra alla Verità, bisogna sbarazzarsene per coglierla, e il modo per farlo è praticare il \emph{tapascarya}, vale a dire forme di ascetismo che comprendono la castità, la povertà volontaria, le restrizioni alimentari. Chi attraverso queste pratiche è giunto a ridurre il proprio ego (Gandhi usa l'espressione ``reduce himself to zero'', ridursi a zero) da un lato entra in contatto con Dio come Verità dell'universo, la Ragione trascendente che sempre interviene nella storia per stabilire il bene, e dall'altro conquista la forza stessa che gli consente di lottare politicamente per l'affermazione del bene e di vincere.\footnote{Per una analisi approfondita rimando al mio \emph{Il Dio di Gandhi. Religione, etica e politica}, Levante, Bari 2009.}
+
+La nonviolenza gandhiana è dunque basata su una particolarissima concezione del mondo: è possibile essere certi del trionfo della verità soltanto se si è certi che il mondo è razionale, che le leggi del mondo sono leggi etiche, che la storia stessa è guidata dalla ragione. Non a caso Gandhi sostiene che la fede in Dio è indispensabile per la pratica della nonviolenza. Tutto ciò è razionalismo. Abbiamo in Gandhi un razionalismo reso possibile dalla fede in Dio. È una cosa di cui non bisogna stupirsi troppo. Piuttosto, occorre prendere atto della inattualità di questa posizione. L'ultima grande espressione del razionalismo in occidente è stato il sistema hegeliano, una interpretazione della grande vicenda dell'essere e della storia umana in cui tutto è impregnato di logos e tutte le contraddizioni sono trascese e pacificate. Purtroppo, non è più tempo per l'ottimismo hegeliano e in generale per il razionalismo. Nemmeno la ragione, come diceva il nostro Giuseppe Rensi già al tempo della Grande Guerra,\footnote{G. Rensi, \emph{Lineamenti di filosofia scettica}, Zanichelli, Bologna 1919.} è universale, bensì frammentata, lacerata, scissa. È per la ragione che gli uomini si combattono ed uccidono --- per i modi diversi ed opposti di intendere la ragione. La ragione è molteplice, come tutto quanto il resto. Non è, quello in cui siamo, un universo, ma un pluriverso. Non è nemmeno, purtroppo, un pluriverso inteso come una unità molteplice ma pacifica. Sembra piuttosto che vi sia una lotta cosmica in cui ogni frammento d'essere lotta per ridurre a sé tutto. Ma questa è ancora metafisica, mentre oggi si tratta di lasciar perdere la metafisica, o almeno di rinunciare a fondare metafisicamente l'etica o la politica. A meno che, naturalmente, non si sia cattolici.
+
+Quel che deve essere chiaro è che il Satyagraha è una forma di razionalismo reso possibile da un atto di fede.
+
+\setcounter{chapter}{2}\addtocounter{chapter}{-1}
+
+\chapter{La nonviolenza usa mezzi diversi dalla politica classica}
+
+Un aspetto importante della riflessione nonviolenta riguarda il rapporto tra mezzi e fini. Mentre il pensiero politico classico da Machiavelli in poi distingue i mezzi dal fine ed afferma che per un fine lecito è possibile impiegare anche mezzi illeciti, la nonviolenza sostiene che la natura del mezzo dev'essere omogenea alla natura del fine. Pretendere di raggiungere la pace attraverso la violenza sarebbe come pretendere di raccogliere orzo dopo aver seminato grano.
+
+In astratto, è difficile contestare questa posizione, e infatti non la contesterò. Quel che vorrei provare a mettere in discussione è che la nonviolenza usi realmente dei messi diversi da quelli della politica classica (intendendo con questa espressione ogni politica che, pur non rifacendosi espressamente a Machiavelli, non escluda in via di principio la possibilità di ricorrere alla violenza per la soluzione di problemi politici). Quali sono realmente i metodi utilizzati dai politici violenti? Quali erano i metodi di un Hitler o di un Mussolini? Le armi, certo. Ma le armi hanno bisogno di qualcuno che le faccia funzionare. C'è bisogno quindi degli eserciti. Ma gli eserciti possono combattere soltanto se gli uomini che ne fanno parte sono convinti di dover usare delle armi per uccidere i nemici, per fare il proprio dovere, per difendere la patria, la libertà, l'onore e chissà cos'altro ancora. Né questo basta. Occorre che l'esercito sia sostenuto da tutto il popolo, dall'opinione pubblica. Un esercito che combatta una guerra considerata ingiusta in patria è condannato alla sconfitta --- il Vietnam lo insegna. La vera arma della politica classica non sono dunque i fucili, i carri armati, i bombardieri e gli eserciti. La vera arma della politica classica è la suggestione delle masse. Il vero maestro di Mussolini non è, per sua stessa ammissione, Machiavelli, ma Gustave Le Bon, il sorprendente autore della \emph{Psicologia delle folle}.
+
+La domanda che bisogna porsi allora è: la nonviolenza usa realmente mezzi diversi dalla suggestione delle masse? Quale ruolo ha giocato nella impresa gandhiana una intelligente suggestione delle masse? Non è anche Gandhi, come Mussolini, un allievo di Le Bon? O, se questa affermazione sembra irriguardosa: non era forse l'impresa gandhiana prevedibile alla luce della teoria di Le Bon non meno dei totalitarismi fascista, nazista e comunista? Le Bon non negava la possibilità di suggestionare le masse in positivo, per così dire, inducendo migliaia e addirittura milioni di individui a compiere azioni nobili e generose. Tuttavia, questo fatto eccezionale nulla aggiunge alla fenomenologia della suggestione, che resta un fenomeno inquietante e pericoloso, perché sottrae le capacità critiche e razionali all'individuo rendendolo capace di tutto.
+
+Bisogna notare che, se è vero che la suggestione ha avuto un ruolo di primo piano nell'efficacia dell'impresa gandhiana, quello del Mahatma si configura come un razionalismo sospeso in alto alla fede e poggiato in basso sulla suggestione.
+
+\setcounter{chapter}{3}\addtocounter{chapter}{-1}
+
+\chapter{Ogni uomo è convertibile al bene}
+
+La nonviolenza ritiene che in ogni uomo sia presente un fondo di bontà, spesso ben nascosto e soffocato dalle passioni, ma mai del tutto estinto, al punto tale che basta saper trovare le parole giuste, basta un gesto significativo per far riaffiorare quella bontà di fondo ed operare la conversione del nemico. È questa convinzione che ha spinto Gandhi a scrivere una lettera ad Hitler, che non è stata mai recapitata, in cui gli chiedeva a nome dell'umanità di fermare la guerra.
+
+Questo fondo dell'anima è mitico. Non è possibile ovviamente negare la realtà delle conversioni, ma nemmeno è possibile dedurre da esse la convertibilità di ogni essere umano, perché la maggior parte degli uomini si aggrappano disperatamente a quel che sono, e preferirebbero morire piuttosto che cambiare un aspetto anche superficiale della propria identità. Quel che un uomo ha nel fondo dell'anima è un mistero per tutti e soprattutto per se stesso. E d'altra parte, se in Hitler c'era un fondo di bontà, anche in Gandhi bisogna postulare un fondo di malvagità: e questo complica molto le cose. Come può Gandhi, lui stesso insidiato dalla malvagità, cercare di convertire Hitler? E se invece Gandhi non aveva alcun fondo di malvagità, ma era un uomo assolutamente buono, incorruttibile, indifferente alla seduzione del male, perché non possiamo considerare Hitler come un uomo assolutamente malvagio, indifferente alla voce del bene?
+
+Se esistono uomini radicalmente buoni, allora vi sono anche uomini radicalmente cattivi. Se invece gli uomini non sono mai radicalmente buoni o cattivi, ma sempre incerti tra il bene e il male, chi può pretendere di convertire il prossimo? Le probabilità che un Hitler converta un Gandhi non sono inferiori a quelle della immediata e completa conversione di un Hitler. Ma ammettiamo per un attimo un Hitler profondamente commosso dalla lettera di Gandhi, improvvisamente convertito, oppresso dai sensi di colpa per il male fatto e desideroso di rimediare al più presto. Avrebbe potuto realmente porre fine alla guerra? C'è da dubitarne. Nemmeno i dittatori sono signori della storia, né padroni dei loro popoli. Un dittatore convertito sarebbe un dittatore morto, ed il suo posto sarebbe ben presto preso da un altro. Il nazismo non era Hitler, ma aveva profonde radici in almeno cento anni di storia e di cultura tedesca. Per essere realmente efficace, la lettera di Gandhi avrebbe dovuto non solo convertire Hitler, ma cancellare di colpo cento e più anni di risentimento, di esaltazione, di militarismo. Avrebbe dovuto convertire un intero popolo. Ma i popoli sono ancora meno convertibili degli individui.
+
+Le cose non cambiano molto nemmeno se crediamo in Dio. Certo, possiamo pregare Dio di illuminare la mente dei potenti o addirittura l'anima di interi popoli. Di fronte alla constatazione della assoluta inutilità di queste preghiere, tuttavia, un credente dovrà ammettere che Dio non può fare a meno di rispettare il libero arbitrio degli uomini.
+
+\setcounter{chapter}{4}\addtocounter{chapter}{-1}
+
+\chapter{Convertendo le persone all’amore si attuerà la rivoluzione nonviolenta}
+
+Non è infrequente imbattersi nell'espressione ``rivoluzione nonviolenta''. È diffusa l'idea che la nonviolenza sia una pratica rivoluzionaria, non, ovviamente, nel senso che voglia fare una rivoluzione tradizionalmente intesa, ma perché intende operare un cambiamento lento, profondo e dolce (per riprendere la riformulazione di Alex Langer del motto olimpionico) nella società, nell'economia e nella cultura; un cambiamento dal basso, che comincia dall'individuo, dalla sua vita quotidiana, dalla rete delle sue relazioni. Non dalle nuove strutture all'uomo nuovo, ma dall'uomo nuovo alle nuove strutture. La società nonviolenta, e perciò giusta e vera, nascerà dalla personalità nonviolenta, vale a dire dall'uomo giusto ed equo, che rinuncia alla violenza e vive nell'amore del prossimo, che evita lo sfruttamento, che non uccide nemmeno gli esseri non umani e perciò è tendenzialmente vegetariano, che fa attenzione a non contribuire con il suo stile di vita alle ingiustizie economiche, che è contro il razzismo e il conflitto culturale, che si impegna politicamente al di fuori degli angusti schieramenti politici, che in altri termini è non astrattamente, ma concretamente, politicamente virtuoso.
+
+Non nego la possibilità di una tale rivoluzione attuata attraverso la conversione dei singoli. Credo che però se ne debba discutere la probabilità. Per quanto possibile, una simile rivoluzione nonviolenta è del tutto improbabile. Le religioni predicano da secoli le più alte virtù e pongono davanti ai singoli ideali di perfezione umana: né gli insegnamenti del Vangelo o del \emph{Dhammapada}, né l'esempio dei grandi maestri delle religioni, né la suggestione della chiesa e del tempio, né i timori dell'inferno o della rinascita sono stati sufficienti. Salvo rare eccezioni, gli uomini hanno continuato a tenersi a rispettosa distanza dalla pratica della virtù.
+
+Non sono mancate in nessun tempo le cerchie di uomini dediti a pratiche supererogatorie, ma si è trattato, appunto, di \emph{élites}, di gruppi la cui influenza sulla struttura economico-sociale del loro tempo è stata quasi irrilevante. Per quanto possa diffondersi oggi uno stile di vita nonviolento, è difficile immaginare che un numero considerevole di persone, tale da provocare cambiamenti significativi nella vita collettiva, si possano convertire ad esso, tanto più che si tratta di uno stile di vita che va contro quasi tutti i valori dominanti e gli interessi ad essi legati. È da escludere che i cambiamenti proposti dalla nonviolenza possano essere decisi dall'alto, perché si tratta di cambiamenti che riguardano lo stile di vita, ed uno Stato che volesse decidere lo stile di vita dei cittadini --- volesse ristrutturare la società civile --- sarebbe uno stato totalitario. Non sembra esserci, purtroppo, una terza via tra elitarismo e totalitarismo.
+
+\setcounter{chapter}{5}\addtocounter{chapter}{-1}
+
+\chapter{È possibile giungere ad una piena comprensione tra culture diverse}
+
+Gandhi aveva una grande fiducia nella possibilità di comprensione e coesistenza tra culture e fedi diverse. Da induista, possedeva una comprensione aperta del Divino e non aveva alcuna difficoltà ad apprezzare l'islam, il cristianesimo, il buddhismo e, per certi versi, lo stesso ateismo (in quanto è anch'esso una ricerca della verità, e Dio è, appunto, Verità). La sua fiducia, purtroppo, era ingenua, così come la sua interpretazione delle religioni diverse dall'induismo, mossa dalla preoccupazione di far venire in primo piano gli elementi conciliabili, tacendo quelli incompatibili. Da un punto di vista prettamente intellettuale, una operazione del genere non sembra difficile. Basta isolare nelle diverse tradizioni religiose l'elemento etico e far notare la vicinanza, se non proprio la somiglianza, tra l'ahimsa indiana e l'amore cristiano o tra la devozione islamica e la bhakti. Tutte le religioni sono viste come vie diverse che conducono all'Assoluto. Del resto, se c'é un Assoluto, sarebbe ben strano che una sola via conducesse a Lui. Questa convinzione, che Gandhi aveva ricevuto dalla teosofia, è seriamente sostenuta soltanto dai seguaci della New Age. La verità, invece, è che l'Assoluto, proprio perché assoluto, non si lascia vincolare, limitare, comporre. L'Assoluto cristiano non può scendere a patti con l'Assoluto musulmano o ebraico, né può avere altro che disprezzo per il politeismo. Questo sembra essere un problema particolare dei monoteismi, sulla cui radice violenta sono forse condivisibili le osservazioni critiche di James Hillman (ancora nel suo ultimo libro, \emph{Un terribile amore per la guerra}). La religione non è, purtroppo, soltanto etica. La religione è legata principalmente allo stile di vita ed all'identità, è una grammatica per leggere il territorio esteriore ed interiore, una mappa del mondo che gli uomini credono di dover custodire intatta per non perdersi nel caos. Difficile dire cosa è centro e cosa è periferia, cosa è essenziale e cosa è orpello in una religione. In un paese del sud portare il santo in processione è al centro del cristianesimo non meno del sacramento della comunione, e tutti sarebbero pronti alla violenza per difendere quella tradizione che interpretano come elemento essenziale e irrinunciabile della loro identità. Il dialogo tra religioni, che avviene a livello intellettuale --- filosofico ed etico --- lascia intatta questa base rituale, cerimoniale, identitaria, che è centrale non meno del contenuto etico o mistico di una fede, e che però è al di qua di ogni possibilità di intesa con altri rituali e cerimoniali, con altre identità.
+
+Forse intellettuali appartenenti a diverse fedi religiose potranno giungere ad elaborare una ``etica mondiale'' (qualcosa come l'\emph{homaranismo} di Lejzer Zamenhof), ma i fedeli delle singole religioni continueranno ad odiarsi come si odia il diverso, tutte le volte che si sentiranno minacciati nella loro identità e nei loro cerimoniali.
+
+\setcounter{chapter}{6}\addtocounter{chapter}{-1}
+
+\chapter{C’è sintonia tra la nonviolenza e il movimento femminista}
+
+Una delle espressioni più intellettualmente stimolanti di questa convinzione diffusa è il libro \emph{Donne} \emph{disarmanti}\footnote{Intra Moenia, Napoli 2003.} a cura di Monica Lanfranco e Maria G. Di Rienzo, nel quale si fa il punto sul rapporto tra femminismo e nonviolenza (anzi, tra i femminismi e la nonviolenza), da un lato recuperando momenti e figure importanti della storia del femminismo che sono anche esempi di lotta nonviolenta, dall'altro soffermandosi su alcuni nodi teorici: il legame tra guerra e maschilità, l'inclinazione delle donne alla pace, il significato del corpo per la guerra e la pace. Una riflessione che ha un evidente orizzonte pratico nella necessità di realizzare una convergenza dei movimenti di liberazione, attuando un grande fronte comune contro la guerra ed altre realtà di violenza e progettando forme nuove di democrazia e di azione politica.
+
+Scartata l'idea di un legame assoluto tra femminilità e pace, sconfessata da non poche pratiche violente propriamente femminili, come anche dalla tutt'altro che infrequente partecipazione di donne alla violenza della guerra (ed il caso della tortura dei prigionieri iracheni da parte di soldati americani, che ha visto protagoniste anche giovanissime soldatesse, ne è una triste conferma), le autrici si concentrano sulle pratiche quotidiane di mediazione, di soluzione dei conflitti, di sostegno alla vita cui le donne sono portate dalla maternità e dal ruolo sociale che ne deriva. Le donne non sono nonviolente per natura ma, osserva Giancarla Codrignani, a differenza degli uomini ``ragionano spesso sul fatto che il corpo sia fatto per la vita''.\footnote{Ivi, p.~176.} E sono loro, quando la guerra è passata, a ricostruire il tessuto sociale, a riallacciare le relazioni, a guarire le ferite.
+
+L'ideologia bellicista non ha ricevuto dalle donne alcun contributo; molto invece deve all'immaginario maschile. Nel linguaggio militare, nel simbolismo, nella stessa conformazione delle armi sono trasparenti i riferimenti ad un modello aggressivo di sessualità, propriamente maschile (e non sorprende che la pratica della guerra contemporanea comprenda anche, con una certa regolarità, lo stupro). Vi è una continuità tra il patriarcato e la guerra. Come sistema sociale e culturale di dominio sulle donne, il patriarcato include anche la purificazione dell'uomo da ogni aspetto femminile della sua personalità (dall'anima, in termini junghiani), e la corrispondente esaltazione delle qualità maschili più grossolane. La guerra non è che la conseguenza di questo modello umano duro, che espelle dalla sfera politica sensibilità e mediazione, puntando tutto invece sulla durezza. Un modello che può anche servirsi di donne (Margareth Thatcher, Condoleeza Rice), ma che resta nondimeno un modello pensato dagli uomini.
+
+Non vi è alcun vero progresso, per le donne, nell'assumere posizioni di potere all'interno di questo modello. La via del femminismo è invece quella di una contestazione parallela del maschilismo e del bellicismo e della costruzione di una società nonviolenta che porti l'impronta dei valori e delle qualità femminili.
+
+È stata questa la via di donne che appartengono al mito, come la Lisistrata di Aristofane, Cassandra e Antigone, ed alla storia, come Bertha von Suttner, l'autrice di \emph{Giù le armi!} che ricevette nel 1905 il premio Nobel per la pace, istituito anche grazie alla sua decisiva influenza su Alfred Nobel, Rosa Luxemburg, Barbara Deming, attivista nonviolenta, femminista, antirazzista e lesbica americana, la cui lotta è un esempio storico di quella convergenza di pratiche di liberazione auspicata da quel libro. E ancora: la resistenza delle donne della Rosenstrasse nella Germania hitleriana, la lotta di Medha Patkar contro la costruzione in India di dighe volute dalla Banca mondiale dai devastanti effetti sull'ambiente e la popolazione, l'impegno di Aung San Suu Kyi per la libertà del popolo birmano, la militante pacifista curda Leyla Zana, l'attivista verde Ingrid Betancourt sequestrata dai guerriglieri colombiani, e tante altre storie, spesso del tutto dimenticate, che questo libro ha il merito di riportare alla luce e proporre all'attenzione del lettore.
+
+Quel libro raggiunge egregiamente lo scopo di dimostrare che c'é pratica della nonviolenza nel femminismo. Quel che manca è una riflessione critica su un altro problema: quanto femminismo c'é nella nonviolenza? Il movimento delle donne ha sviluppato per conto suo una pratica nonviolenta, insieme a posizioni teoriche ed a rivendicazioni sociali. Fino a che punto, al di là della convergenza della pratica, queste posizioni teoriche e queste rivendicazioni collimano con quelle della nonviolenza, elaborate ed avanzate da uomini come Gandhi, Lanza del Vasto, Aldo Capitini, Danilo Dolci? Una lettura critica di questi autori avrebbe permesso di constatare che c'é qualche forma di maschilismo anche all'interno della tradizione nonviolenta. Il femminismo è un movimento legato all'industrializzazione, ai cambiamenti sociali che hanno portato le donne nel mondo del lavoro, al passaggio dalla famiglia patriarcale a quella nucleare, insomma alle profonde modificazioni delle società occidentale con le quali si è consumata quasi senza residui la civiltà contadina. Questi cambiamenti sono visti con sospetto, quando non apertamente condannati, dai maestri della nonviolenza, che hanno invece esaltato proprio la civiltà rurale, alimentando spesso l'ideale romantico di una società statica, equilibrata, in cui i ruoli siano fissi e complementari. Quel patriarcato individuato come causa della guerra torna all'interno della nonviolenza nell'Arca di Lanza del Vasto, ad esempio: un ordine rurale e patriarcale, in cui non conta tanto il fatto che il potere sia nelle mani di un uomo (patriarca può essere anche una donna), quanto l'immaginario del potere, calcato sull'immagine del patriarca biblico. Un ulteriore problema è quello della sessualità. Barbara Deming lottava per il riconoscimento della propria omosessualità adoperando il metodo gandhiano, ma Gandhi considerava inopportuna --- almeno per sé --- anche la sessualità coniugale. La nonviolenza si è sviluppata in contesti culturali e spirituali --- quello indiano, ma anche quello cattolico --- caratterizzati da una visione rigorista e punitiva del sesso; ed anche nella nonviolenza laica (in Capitini e in Dolci, ad esempio) manca una adeguata riflessione sulla sessualità.
+
+Differenze non lievi sorgono, poi, considerando la questione dell'aborto. Conquista indispensabile per il femminismo, esso si accorda ben poco con l'intento di preservare ogni forma di vita, che viene alla nonviolenza dall'ahimsa induista, jainista e buddhista e dal concetto cristiano di persona. Si presenta qui un classico contrasto tra un'etica della sacralità della vita, quale è quella dei grandi maestri della nonviolenza, ed un'etica della qualità della vita.
+
+Oltre l'affinità delle pratiche, insomma, l'incontro reale tra femminismo e nonviolenza non può avvenire senza una discussione critica dei reciproci fondamenti teorici ed epistemologici, che è ancora tutta da fare.
+
+\setcounter{chapter}{7}\addtocounter{chapter}{-1}
+
+\chapter{Si può attuare il potere di tutti}
+
+L'idea del potere di tutti o \emph{omnicrazia} è di Aldo Capitini. Non esito ad affermare che, insieme a quella della compresenza, è l'idea più importante lasciataci in eredità dal filosofo di Perugia. Con l'omnicrazia è possibile pensare una forma di democrazia non soltanto formale: una democrazia autentica, viva, partecipata. Tutti sono chiamati all'impegno politico attraverso l'assemblea, alla discussione ed all'analisi critica delle decisioni degli uomini politici, con le quali già si esercita un potere diverso, un potere distribuito. Con l'omnicrazia la politica viene gradualmente sottratta ai partiti ed ai politici di professione e torna ad essere cosa di tutti. Lo strumento del potere di tutti erano i Centri di Orientamento Sociale (Cos), che Capitini creò nel dopoguerra e che, come é noto, ebbero vita né facile né lunga. È rimasta l'idea, che torna con gran frequenza nei dibattiti di area nonviolenta, ma non si può dire che la prassi abbia fatto un solo passo avanti dai tempi di Capitini. Se mi interrogo sul perché di questa situazione, mi viene in mente una considerazione dell'Anonimo di Giamblico: gli uomini amano dedicarsi ai propri affari e non si preoccupano della cosa pubblica se non quando il suo cattivo andamento li costringe a farlo. Oggi un tale giudizio appare anche troppo ottimistico. Nemmeno un evidente pericolo basta spesso per indurre la gente a riunirsi in assemblea ed occuparsi della cosa pubblica. Questo non è, con ogni probabilità, un fatto naturale, bensì il risultato dell'opera decennale dei centri di potere, che hanno concentrato l'attenzione pubblica sui fatti irrilevanti dello sport, dello spettacolo e della moda per sviarla da quelli dell'economia e della politica. Il fenomeno fu colto da Capitini quando probabilmente era già troppo avanzato per contrastarlo efficacemente. Oggi può dirsi quasi del tutto compiuto, e la dimostrazione è negli scontri di piazza che seguono alla retrocessione di una squadra di calcio, mentre fatti ben più gravi accadono nell'indifferenza di tutti. La diffusione della rete Internet e dei social network ha creato una tragica caricatura del potere diffuso. Il potere di tutti si fonda sulla conoscenza diffusa, sull'analisi attenta, complessa, difficile dei problemi comuni, sulla discussione seria, sul confronto profondo. Nulla di tutto ciò accade in rete. Essa diffonde una illusione di conoscenza, favorisce la pretesa di intervenire sulle questioni pubbliche senza avere né cercare alcuna competenza; l'esito è la \emph{chiacchiera} scomposta di una massa irresponsabile che vomita odio, pregiudizio, violenza.
+
+È bene continuare a tenere vivo il progetto capitiniano e nonviolento del potere di tutti, ma è importante essere anche consapevoli che si tratta di un progetto drammaticamente lontano dalla realtà attuale, e che oggi si tratta di salvare l'idea dell'omnicrazia, rimandando a tempi migliori --- che non verranno domani, né dopodomani --- la sua realizzazione.
+
+\setcounter{chapter}{8}\addtocounter{chapter}{-1}
+
+\chapter{È sempre possibile trascendere i conflitti}
+
+Il concetto di ``trascendimento'' è di Johan Galtung, che ne ha fatto il centro del metodo Transcend per la soluzione dei conflitti, interpretando e sviluppando alla luce della sociologia dei conflitti il Satyagraha gandhiano. Trascendere un conflitto vuol dire evitare una uscita dal conflitto in cui uno dei due contendenti abbia ragione dell'altro, con una soluzione evidentemente parziale ed insoddisfacente. Il trascendimento del conflitto avviene invece cercando una situazione che vada al di là di quanto cercato dai due contendenti, e che in qualche modo accontenti entrambi. Ci troviamo di nuovo di fronte ad una sorte di \emph{Aufhebung} hegeliana che trascende conciliando. Si tratta, purtroppo, di una soluzione che non chiede solo creatività ed inventiva. È una soluzione praticabile solo nel caso in cui entrambi i contendenti abbiano una parte di ragione (una parte uguale di ragione, magari) ed abbiano entrambi la volontà di giungere ad una soluzione giusta del conflitto. Il soggetto A ha un interesse legittimo su una proprietà del soggetto B (ad esempio una servitù di passaggio), il soggetto B ha un interesse legittimo ad impedire ad A la soddisfazione del suo interesse legittimo; A e B hanno la stessa forza e sono entrambi animati da buona volontà. In questo caso è possibile lavorare ad una soluzione che contempli la soddisfazione parziale o completa del legittimo interesse di entrambi. Se B invece non ha alcun interesse legittimo in base al quale impedire ad A la soddisfazione del suo interesse legittimo, ma lo fa perché mosso da semplice antipatia e dalla consapevolezza di essere più forte di A, nessun trascendimento del conflitto è possibile. Nella migliore delle ipotesi, A ricorrerà ad un giudice per far valere i suoi diritti ed il giudice gli darà ragione, senza attuare alcun trascendimento del conflitto, ma facendo pendere la bilancia della giustizia dalla sua parte.
+
+La maggior parte dei conflitti, sia tra individui che tra stati, è di questo secondo tipo. Spesso, come sappiamo, le ragioni di una delle parti in conflitto (o addirittura di entrambe) non sono che pretesti. Uno stato sostiene che un altro stato ha armi di distruzioni di massa. In realtà quello stato è interessato a far guerra, e nulla potrà dissuaderlo. In questo caso, nessun trascendimento è possibile. Nemmeno accurati controlli, che dimostrino che lo stato incriminato non ha armi di distruzione di massa, basteranno. Su gran parte dei conflitti l'ultima parola l'ha detta Esopo con la favola del lupo e dell'agnello.
+
+\setcounter{chapter}{9}\addtocounter{chapter}{-1}
+
+\chapter{È possibile incidere sulle scelte politiche attraverso le manifestazioni}
+
+Oltre che inventore dei Centri di Orientamento Sociale, Capitini è stato l'ideatore della Marcia della Pace. Se i primi sono un esperimento non più tentato, la seconda è un appuntamento fisso ed una delle espressioni salienti del mondo nonviolento in Italia. Questo fatto mi sembra significativo. La nonviolenza ha due strumenti per incidere nella realtà: le strutture e le manifestazioni. Le prime bisognerebbe chiamarle più propriamente contro-strutture, perché si oppongono alle strutture dominanti e diffuse. Possiamo considerare contro-strutture i Cos di Capitini, i gruppi maieutici di Danilo Dolci, l'Arca di Lanza del Vasto, ma anche la scuola di Barbiana. Ora, sembra che l'idea di una nonviolenza strutturale o controstrutturale sia stata progressivamente abbandonata in favore dell'idea di una nonviolenza delle manifestazioni. La marcia, il sit-in, la protesta sono gli strumenti di gran lunga privilegiati, mentre è totalmente scomparsa, ad esempio, l'idea di una scuola popolare. L'idea dominante nel mondo nonviolento è che il potere dipende dall'opinione pubblica, per cui una manifestazione imponente dovrebbe intimorire il potere politico e indurlo a cambiare posizione. Le cose invece vanno diversamente. Il potere politico sa bene che l'opinione pubblica è incostante, poco tenace, si stanca e di distrae facilmente, e che le manifestazioni non sempre implicano un impegno reale per quella causa. Se così non fosse, le straordinarie manifestazioni contro la seconda guerra in Iraq avrebbero bloccato quel conflitto. Milioni di persone, invece, hanno manifestato contro una guerra voluta con arroganza inaudita dallo stato più potente del mondo, senza che la loro voce abbia avuto il potere di operare alcuna conversione o di impensierire il potere politico per la mancanza di consenso. La guerra è cominciata e quell'esercito di milioni di oppositori ha rotto le fila, si è disperso --- si è, forse, dedicato ad altro.
+
+Non condivido l'opinione di chi pensa che le manifestazioni siano assolutamente inutili --- hanno la stessa efficacia politica del mangiare panini in continuazione, per Christoph Türcke\footnote{Ch. Türke, Violenza e tabù. Percorsi filosofici di confine, Garzanti, Milano 1991.} ---, ma penso che questa convinzione sia meno pericolosa del mito dell'efficacia di un'opinione pubblica non sorretta da strutture stabili di opposizione politica.
+
+\setcounter{chapter}{10}\addtocounter{chapter}{-1}
+
+\chapter{Il volto dell’altro dispone alla responsabilità}
+
+Il volto dell'altro è un appello, al quale non posso fare a meno di rispondere riconoscendo e rispettando la sua umanità. Esprimo un po' rozzamente una convinzione che ha la sua epressione più alta nel pensiero di Levinas, di Jonas, di Capitini, e quella più infima in un certo sentimentalismo e in una certa retorica della nonviolenza. Basterebbe, se così fosse, guardarsi un po' più in faccia l'un l'altro per cambiare il mondo; e invece il volto dell'altro suscita il più delle volte indifferenza, disgusto o odio.
+
+Ascoltiamo Ivan Karamazov:
+
+``Devo farti una confessione'', esordì Ivan, ``non ho mai potuto capire come si possa amare il prossimo. Secondo me, è impossibile amare proprio quelli che ti stanno vicino, mentre si potrebbe amare chi ci sta lontano. Una volta ho letto da qualche parte la storia di `Giovanni il misericordioso', un santo: un viandante affamato e infreddolito andò da lui e gli chiese di riscaldarlo e quello lo fece coricare nel letto insieme a lui, lo abbracciò e prese a soffiargli nella bocca, putrida e puzzolente a causa di una terribile malattia. Io sono convinto che egli lo facesse per una lacerazione piena di falsità, per il dovere di amare che gli era stato imposto, per una penitenza che si era inflitto. Perché si possa amare una persona, è necessario che essa si celi alla vista, perché non appena mostrerà il suo viso, l'amore verrà meno''. {[}\ldots{]} Secondo me, l'amore di Cristo per gli uomini è una specie di miracolo impossibile sulla terra. Vero è che egli era Dio. Ma noi non siamo dei. Supponiamo, per esempio, che io soffra profondamente: un'altra persona non potrà mai sapere fino a che punto io soffra, perché lui è un'altra persona e non è me, e, soprattutto, è raro che un uomo sia disposto a riconoscere in un altro un uomo che soffre (come se si trattasse di un'onorificenza). Perché non è disposto a farlo, tu che ne pensi? Perché, ad esempio, ho un cattivo odore, perché ho una faccia stupida, o perché una volta gli ho pestato un piede. {[}\ldots{]} Si può amare il prossimo in astratto, a volte anche da lontano, ma da vicino è quasi impossibile.''\footnote{F. Dostoevskij, \emph{I fratelli Karamazov}, Garzanti, Milano 1999, vol.~1, pp.~327-328.}
+
+Il viso dell'altro è incompatibile con l'amore, così come è incompatibile la vicinanza. Se un amore è possibile, non é l'amore del prossimo, ma l'amore del più lontano.
+
+L'amore è suscitato dalla bellezza fisica o morale, ma la bellezza è cosa rara, e ancora più raro è che quella fisica e quella morale coesistano. Eppure, si dirà, esiste la santità, eppure esistono esempi di un tale amore dell'altro. Che tale amore nasca da qualche forma di lacerazione, è ipotesi che lascio a Ivan Karamazov. Qui basta notare che la santità è rara, e che non si può chiedere all'uomo e alla donna comuni di sforzarsi verso la santità.
+
+La nonviolenza considera la guerra un incidente della storia che non contiene alcuna verità sull'essere umano. Gli uomini si massacrano da secoli, e tuttavia questo non vuol dire nulla, per Gandhi: da secoli gli uomini si amano, anche. Ma l'amore degli uomini, quell'amore che fa nascere le nuove generazioni, fa parte della natura, è l'amore stesso degli animali. L'odio che fa milioni di vittime, che spinge un popolo come l'altro, che esige il massacro, quest'odio é puramente umano, fa tutt'uno con l'apparizione dell'uomo sul pianeta. Perché? Si esclude che l'uomo abbia una propensione biologica alla violenza. Perché allora il massacro? La nonviolenza dovrebbe prendere seriamente in considerazione la possibilità che l'odio che genera il massacro nasca proprio dalla insostenibilità del volto dell'altro.
+
+\chapter*{Una conclusione provvisoria}\addcontentsline{toc}{chapter}{Una conclusione provvisoria}
+
+Aldo Capitini considerava la nonviolenza una posizione tragica e contrapponeva questa sua tragicità all'ottimismo del pacifismo: e tragica in effetti appare la nonviolenza, se non la si sospende ad una garanzia metafisica o religiosa. Una nonviolenza tragica è, quindi, una nonviolenza laica, autonoma dalla metafisica e dalla religione, una prassi politica che cerca di far spazio alla ragione in un mondo che non è razionale. È una nonviolenza senza Dio, ma non irreligiosa. Anche i credenti possono scoprire il valore di una prassi \emph{etsi Deus non daretur} nell'età postmoderna. È questo, mi sembra, il significato profondo della teologia di Dietrich Bonhoeffer. Vivere nel mondo senza Dio, come se Dio --- il Dio Tappabuchi --- non ci fosse, e intanto fare spazio a Dio, stare con Dio. Vale a dire, per un non credente: fare spazio alla ragione nel mondo senza avere alcuna fede nella natura razionale del mondo.
+
+Consapevole che gli uomini non si amano, una nonviolenza senza miti non predicherà l'amore universale, né l'amore del prossimo; cercherà invece di sostenere la pratica della giustizia. Posso essere giusto con l'altro, anche se il suo volto mi ripugna; e quand'anche non volessi, posso essere costretto dalla legge a rendere giustizia all'altro. Nessuna legge invece può costringermi ad amare.
+
+Questo vuol dire rivalutare in qualche modo quell'atomismo sociale tanto aborrito da Capitini (in ciò d'accordo con Gentile), cercare una nonviolenza degli individui più che una nonviolenza della comunità. Una nonviolenza individualistica può riconoscere i diritti delle donne, mentre in una prospettiva comunitaria è forte la tentazione di assegnare a ciascuno il suo posto, riservando alle donne il focolare domestico nell'ottica di una sensata distinzione di ruoli. ``È diritto della donna governare nella casa, mentre l'uomo è padrone fuori di casa. L'uomo guadagna la vita, la donna risparmia e spende. La donna tira su i bambini: è la loro madre. È responsabile della formazione del loro carattere. È la loro educatrice, e quindi è la madre della stirpe'', scrive Gandhi.\footnote{M.K. Gandhi, My Views on Education, Mumbai-New Delhi 1998, pp.~19-20.} La donna in casa, l'uomo fuori casa. Che anche le donne potessero dedicarsi alle stesse occupazioni degli uomini era per Gandhi un segno di decadenza e di cedimento dell'India alla logica occidentale del capitale. Ma l'individualismo non è solo il portato del capitalismo. È anche la concezione ideale che consente di pensare e di praticare la pari dignità degli esseri umani e l'uguaglianza non astrattamente e retoricamente affermata, ma garantita dal diritto.
+
+\end{document}

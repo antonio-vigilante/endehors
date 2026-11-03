@@ -1,0 +1,26 @@
+{
+  "name": "endehors",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "pdf": "node scripts/pdf.mjs",
+    "importa": "python scripts/importa/importa.py && python scripts/importa/risorse.py",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.5",
+    "@fontsource/im-fell-dw-pica": "^5.3.0",
+    "astro": "^7.4.5",
+    "node-html-parser": "^9.0.6",
+    "unist-util-visit": "^5.2.0"
+  },
+  "devDependencies": {
+    "pagefind": "^1.6.0"
+  }
+}

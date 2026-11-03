@@ -1,0 +1,13 @@
+---
+titolo: "Una conclusione provvisoria"
+tipo: "testo"
+ordine: 12
+---
+
+Aldo Capitini considerava la nonviolenza una posizione tragica e contrapponeva questa sua tragicità all’ottimismo del pacifismo: e tragica in effetti appare la nonviolenza, se non la si sospende ad una garanzia metafisica o religiosa. Una nonviolenza tragica è, quindi, una nonviolenza laica, autonoma dalla metafisica e dalla religione, una prassi politica che cerca di far spazio alla ragione in un mondo che non è razionale. È una nonviolenza senza Dio, ma non irreligiosa. Anche i credenti possono scoprire il valore di una prassi *etsi Deus non daretur* nell’età postmoderna. È questo, mi sembra, il significato profondo della teologia di Dietrich Bonhoeffer. Vivere nel mondo senza Dio, come se Dio — il Dio Tappabuchi — non ci fosse, e intanto fare spazio a Dio, stare con Dio. Vale a dire, per un non credente: fare spazio alla ragione nel mondo senza avere alcuna fede nella natura razionale del mondo.
+
+Consapevole che gli uomini non si amano, una nonviolenza senza miti non predicherà l’amore universale, né l’amore del prossimo; cercherà invece di sostenere la pratica della giustizia. Posso essere giusto con l’altro, anche se il suo volto mi ripugna; e quand’anche non volessi, posso essere costretto dalla legge a rendere giustizia all’altro. Nessuna legge invece può costringermi ad amare.
+
+Questo vuol dire rivalutare in qualche modo quell’atomismo sociale tanto aborrito da Capitini (in ciò d’accordo con Gentile), cercare una nonviolenza degli individui più che una nonviolenza della comunità. Una nonviolenza individualistica può riconoscere i diritti delle donne, mentre in una prospettiva comunitaria è forte la tentazione di assegnare a ciascuno il suo posto, riservando alle donne il focolare domestico nell’ottica di una sensata distinzione di ruoli. "È diritto della donna governare nella casa, mentre l’uomo è padrone fuori di casa. L’uomo guadagna la vita, la donna risparmia e spende. La donna tira su i bambini: è la loro madre. È responsabile della formazione del loro carattere. È la loro educatrice, e quindi è la madre della stirpe", scrive Gandhi.[^8] La donna in casa, l’uomo fuori casa. Che anche le donne potessero dedicarsi alle stesse occupazioni degli uomini era per Gandhi un segno di decadenza e di cedimento dell’India alla logica occidentale del capitale. Ma l’individualismo non è solo il portato del capitalismo. È anche la concezione ideale che consente di pensare e di praticare la pari dignità degli esseri umani e l’uguaglianza non astrattamente e retoricamente affermata, ma garantita dal diritto.
+
+[^8]: M.K. Gandhi, My Views on Education, Mumbai-New Delhi 1998, pp. 19-20.

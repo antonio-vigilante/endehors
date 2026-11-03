@@ -1,0 +1,14 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-endehors.png';
+
+interface Props {
+  compatto?: boolean;
+}
+const { compatto = false } = Astro.props;
+---
+
+<a class="marchio" href="/" aria-label="endehors — catalogo">
+  <Image src={logo} alt="" width={compatto ? 64 : 96} loading="eager" />
+  {!compatto && <span>endehors</span>}
+</a>

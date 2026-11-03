@@ -1,0 +1,689 @@
+/* ==========================================================================
+   endehors — foglio di stile
+   Testo: Georgia. Titoli: TeX Gyre Adventor (affine al Century Gothic delle
+   copertine) nel blu cartazucchero delle copertine. Marchio: IM Fell DW Pica.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Adventor';
+  src: url('/font/texgyreadventor-regular.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Adventor';
+  src: url('/font/texgyreadventor-bold.woff') format('woff');
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --carta: #fbf9f4;
+  --carta-2: #f3efe6;
+  --inchiostro: #1e1d1a;
+  --tenue: #6a675f;
+  --filo: #e2ddd1;
+  --blu: #254a77; /* cartazucchero, dalle copertine */
+  --blu-chiaro: #dfe6ef;
+  --evidenza: #f6e7a8;
+
+  --serif: Georgia, 'Times New Roman', serif;
+  --sans: 'Adventor', 'Century Gothic', 'URW Gothic', 'Avant Garde', sans-serif;
+  --marchio: 'IM Fell DW Pica', Georgia, serif;
+
+  /* preferenze di lettura (modificabili dal pannello Aa) */
+  --corpo: 1.1875rem;
+  --interlinea: 1.65;
+  --misura: 34em;
+
+  color-scheme: light;
+}
+
+:root[data-tema='seppia'] {
+  --carta: #f4ecd8;
+  --carta-2: #ebe1c8;
+  --inchiostro: #3a2f22;
+  --tenue: #7a6a55;
+  --filo: #dccfb2;
+  --blu: #2f527c;
+  --blu-chiaro: #e3dcc6;
+  --evidenza: #ecd98c;
+}
+:root[data-tema='notte'] {
+  --carta: #17191d;
+  --carta-2: #1f2228;
+  --inchiostro: #dcd8cf;
+  --tenue: #959188;
+  --filo: #33363d;
+  --blu: #9db8db;
+  --blu-chiaro: #26303d;
+  --evidenza: #4a4220;
+  color-scheme: dark;
+}
+:root[data-corpo='1'] { --corpo: 1rem; }
+:root[data-corpo='2'] { --corpo: 1.09rem; }
+:root[data-corpo='4'] { --corpo: 1.3rem; }
+:root[data-corpo='5'] { --corpo: 1.45rem; }
+:root[data-interlinea='stretta'] { --interlinea: 1.5; }
+:root[data-interlinea='ampia'] { --interlinea: 1.85; }
+:root[data-misura='stretta'] { --misura: 29em; }
+:root[data-misura='ampia'] { --misura: 40em; }
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: 5rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  background: var(--carta);
+  color: var(--inchiostro);
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--blu); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--blu); outline-offset: 2px; border-radius: 2px; }
+::selection { background: var(--blu-chiaro); }
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3, h4 {
+  font-family: var(--sans);
+  font-weight: 700;
+  color: var(--blu);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+.etichetta {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tenue);
+}
+
+.contenitore { max-width: 68rem; margin: 0 auto; padding: 0 1.5rem; }
+.colonna { max-width: 38rem; margin: 0 auto; padding: 0 1.5rem; }
+
+/* --------------------------------------------------------------------------
+   Testata del sito
+   -------------------------------------------------------------------------- */
+.testata {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.6rem 0 1.2rem;
+}
+.marchio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--inchiostro);
+  text-decoration: none;
+}
+.marchio img { height: 3.2rem; width: auto; }
+.marchio span {
+  font-family: var(--marchio);
+  font-size: 1.9rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  padding-top: 0.5rem;
+}
+:root[data-tema='notte'] .marchio img,
+:root[data-tema='notte'] .logo-grande { filter: invert(0.88); }
+
+.nav-sito { display: flex; gap: 1.4rem; align-items: center; }
+.nav-sito a {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--inchiostro);
+  text-decoration: none;
+}
+.nav-sito a:hover, .nav-sito a[aria-current='page'] { color: var(--blu); }
+
+.piede {
+  margin-top: 6rem;
+  padding: 2.5rem 0 3rem;
+  border-top: 1px solid var(--filo);
+  font-size: 0.9rem;
+  color: var(--tenue);
+}
+.piede .contenitore { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+.piede a { color: inherit; }
+
+/* --------------------------------------------------------------------------
+   Bottoni
+   -------------------------------------------------------------------------- */
+.bottone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.05rem;
+  border: 1px solid var(--blu);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--blu);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+}
+.bottone:hover { background: var(--blu-chiaro); }
+.bottone.pieno { background: var(--blu); color: var(--carta); }
+.bottone.pieno:hover { filter: brightness(1.1); }
+.bottone small { color: inherit; opacity: 0.7; font-size: 0.72rem; }
+
+/* --------------------------------------------------------------------------
+   Catalogo (home)
+   -------------------------------------------------------------------------- */
+.presentazione {
+  max-width: 38rem;
+  margin: 3.5rem 0 4.5rem;
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+.presentazione p { margin: 0 0 0.6rem; }
+.presentazione .etichetta { display: block; margin-bottom: 1rem; }
+
+.catalogo { list-style: none; margin: 0; padding: 0; }
+.catalogo > li {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 2.2rem;
+  padding: 2.4rem 0;
+  border-top: 1px solid var(--filo);
+}
+.catalogo img {
+  width: 9rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), 0 8px 20px -12px rgb(0 0 0 / 0.35);
+}
+.catalogo .autore { font-family: var(--sans); font-size: 0.85rem; letter-spacing: 0.06em; color: var(--tenue); margin: 0 0 0.3rem; }
+.catalogo h2 { font-size: 1.65rem; margin: 0 0 0.25rem; }
+.catalogo h2 a { color: inherit; text-decoration: none; }
+.catalogo .sottotitolo { font-style: italic; margin: 0 0 0.9rem; color: var(--tenue); }
+.catalogo blockquote { margin: 0 0 1.1rem; font-size: 1.02rem; color: var(--inchiostro); max-width: 36rem; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; line-clamp: 4; overflow: hidden; }
+.catalogo .azioni { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+@media (max-width: 40rem) {
+  .catalogo > li { grid-template-columns: 5.5rem 1fr; gap: 1.2rem; }
+  .catalogo img { width: 5.5rem; }
+  .catalogo blockquote { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Scheda del libro
+   -------------------------------------------------------------------------- */
+.scheda {
+  display: grid;
+  grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
+  gap: 3.5rem;
+  margin-top: 2.5rem;
+}
+.scheda .copertina img { box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), 0 18px 40px -22px rgb(0 0 0 / 0.45); }
+.scheda h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin: 0.2rem 0 0.4rem; }
+.scheda .sottotitolo { font-size: 1.25rem; font-style: italic; margin: 0 0 0.6rem; }
+.scheda .responsabilita { color: var(--tenue); margin: 0 0 1.8rem; }
+.scheda .citazione {
+  margin: 0 0 1.6rem;
+  padding: 0;
+  font-size: 1.12rem;
+  font-style: italic;
+}
+.scheda .azioni { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.8rem 0 0.8rem; }
+.riprendi { min-height: 1.4rem; font-size: 0.95rem; color: var(--tenue); }
+.riprendi a { font-style: italic; }
+.dati { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1.2rem; font-size: 0.92rem; margin: 2.2rem 0 0; }
+.dati dt { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tenue); padding-top: 0.25rem; }
+.dati dd { margin: 0; }
+@media (max-width: 48rem) {
+  .scheda { grid-template-columns: 1fr; gap: 1.8rem; }
+  .scheda .copertina { max-width: 12rem; }
+}
+
+.indice-libro { margin-top: 4rem; }
+.indice-libro h2, .sezione-titolo { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; margin: 0 0 1rem; }
+.indice-libro ol { list-style: none; margin: 0; padding: 0; }
+.indice-libro > ol > li { border-top: 1px solid var(--filo); }
+.indice-libro .voce {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr auto;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.85rem 0;
+  text-decoration: none;
+  color: var(--inchiostro);
+}
+.indice-libro .voce:hover .titolo { color: var(--blu); }
+.indice-libro .num { font-family: var(--sans); font-size: 0.75rem; color: var(--tenue); letter-spacing: 0.06em; }
+.indice-libro .titolo { font-size: 1.08rem; }
+.indice-libro .titolo em { color: var(--tenue); }
+.indice-libro .durata { font-family: var(--sans); font-size: 0.72rem; color: var(--tenue); white-space: nowrap; }
+.indice-libro details { margin: -0.3rem 0 0.8rem 6.5rem; }
+.indice-libro summary { cursor: pointer; font-family: var(--sans); font-size: 0.75rem; color: var(--tenue); letter-spacing: 0.04em; }
+.indice-libro details ol { margin: 0.5rem 0 0; columns: 2 16rem; column-gap: 2rem; }
+.indice-libro details li { font-size: 0.92rem; padding: 0.15rem 0; break-inside: avoid; }
+.indice-libro details a { color: var(--inchiostro); text-decoration: none; }
+.indice-libro details a:hover { color: var(--blu); text-decoration: underline; }
+.indice-libro .gruppo { padding: 1.6rem 0 0.4rem; border: 0; }
+@media (max-width: 40rem) {
+  .indice-libro .voce { grid-template-columns: 1fr auto; }
+  .indice-libro .num { grid-column: 1 / -1; margin-bottom: -0.7rem; }
+  .indice-libro details { margin-left: 0; }
+}
+
+.strumenti-libro { display: flex; flex-wrap: wrap; gap: 0.5rem 1.6rem; margin: 2.5rem 0 0; padding: 1.2rem 0 0; border-top: 1px solid var(--filo); font-family: var(--sans); font-size: 0.82rem; }
+
+/* --------------------------------------------------------------------------
+   Pagine di testo semplice (info, apparati)
+   -------------------------------------------------------------------------- */
+.pagina h1 { font-size: 2.2rem; margin: 2.5rem 0 1.5rem; }
+.pagina .intro { font-size: 1.15rem; }
+
+/* --------------------------------------------------------------------------
+   LETTORE
+   -------------------------------------------------------------------------- */
+.barra {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: color-mix(in srgb, var(--carta) 92%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--filo);
+  transition: transform 0.25s ease;
+}
+.barra.nascosta { transform: translateY(-100%); }
+.barra-interna {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  height: 3.4rem;
+  padding: 0 1rem;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+.barra .marchio img { height: 2.5rem; }
+.barra .percorso {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--tenue);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.barra .percorso a { color: var(--inchiostro); text-decoration: none; }
+.barra .percorso a:hover { color: var(--blu); }
+.barra .percorso .sep { margin: 0 0.45rem; opacity: 0.5; }
+.barra-strumenti { display: flex; gap: 0.15rem; }
+.icona {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.3rem;
+  height: 2.3rem;
+  padding: 0 0.5rem;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--inchiostro);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+.icona:hover, .icona[aria-expanded='true'] { background: var(--carta-2); color: var(--blu); }
+.icona svg { width: 1.15rem; height: 1.15rem; stroke: currentColor; fill: none; stroke-width: 1.5; }
+.icona .testo-icona { margin-left: 0.35rem; }
+@media (max-width: 40rem) { .icona .testo-icona { display: none; } .barra .percorso .capitolo-corrente { display: none; } }
+
+.avanzamento { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--blu); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* colonna di testo */
+.lettore { padding: 0 1.25rem; }
+.testo {
+  position: relative;
+  max-width: var(--misura);
+  margin: 0 auto;
+  font-size: var(--corpo);
+  line-height: var(--interlinea);
+  hyphens: manual;
+}
+:root[data-giustifica='si'] .testo .corpo > p { text-align: justify; hyphens: auto; }
+
+.intestazione { margin: 4.5rem 0 3.5rem; }
+.intestazione .numero { display: block; margin-bottom: 0.9rem; }
+.intestazione h1 { font-size: clamp(1.7rem, 3.4vw, 2.35rem); margin: 0; }
+.intestazione .sottotitolo { font-family: var(--serif); font-style: italic; font-size: 1.2em; margin: 0.6rem 0 0; color: var(--inchiostro); }
+.intestazione .autore { margin: 1rem 0 0; color: var(--tenue); font-size: 0.95em; }
+.intestazione .metadati { margin-top: 1.4rem; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--tenue); }
+
+.corpo > p { margin: 0; text-indent: 1.4em; }
+.corpo > :is(h2, h3, hr, blockquote, div, ul, ol) + p,
+.corpo > p:first-child { text-indent: 0; }
+.corpo > h2 {
+  font-size: 1.12em;
+  margin: 2.6em 0 1em;
+  scroll-margin-top: 5rem;
+}
+.corpo > h3 { font-size: 1em; margin: 2em 0 0.8em; }
+.corpo blockquote {
+  margin: 1.1em 0 1.1em 1.6em;
+  font-size: 0.92em;
+  line-height: calc(var(--interlinea) - 0.05);
+}
+.corpo blockquote p { margin: 0 0 0.5em; }
+.corpo hr {
+  border: 0;
+  margin: 2em auto;
+  text-align: center;
+  height: auto;
+}
+.corpo hr::after { content: '∗ ∗ ∗'; color: var(--tenue); letter-spacing: 0.4em; font-size: 0.85em; }
+.corpo ul, .corpo ol { margin: 0.8em 0; padding-left: 1.6em; }
+.corpo .centro { text-align: center; margin: 1em 0; }
+.corpo .destra { text-align: right; margin: 0.6em 0; }
+.corpo .centro p, .corpo .destra p { text-indent: 0; margin: 0; }
+.corpo .epigrafe {
+  margin: 0 0 3.5em auto;
+  max-width: 26em;
+  font-size: 0.92em;
+  font-style: italic;
+}
+.corpo .epigrafe blockquote { margin: 0 0 1em; font-size: 1em; }
+.corpo .epigrafe strong { font-style: normal; font-family: var(--sans); color: var(--blu); font-size: 0.95em; }
+.corpo .epigrafe p { text-indent: 0; margin: 0 0 0.6em; }
+.corpo .epigrafe .destra p { margin: 0; }
+
+/* numeri di paragrafo */
+.corpo > [data-p] { position: relative; }
+.corpo > [data-p]::before {
+  content: attr(data-p);
+  position: absolute;
+  left: -3.2rem;
+  width: 2.4rem;
+  text-align: right;
+  top: 0.35em;
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  color: var(--tenue);
+  opacity: 0;
+  transition: opacity 0.15s;
+  cursor: pointer;
+  text-indent: 0;
+}
+.corpo > [data-p]:hover::before { opacity: 0.75; }
+:root[data-paragrafi='si'] .corpo > [data-p]::before { opacity: 0.55; }
+.corpo > [data-p]:target, .corpo > .lampeggia { animation: lampeggia 2.2s ease-out; }
+@keyframes lampeggia { from { background: var(--evidenza); } to { background: transparent; } }
+@media (max-width: 52rem) { .corpo > [data-p]::before { display: none; } }
+
+/* rimandi di nota */
+.corpo sup { line-height: 0; font-size: 0.68em; vertical-align: 0.55em; }
+a.rimando {
+  font-family: var(--sans);
+  font-weight: 700;
+  text-decoration: none;
+  padding: 0 0.12em;
+  border-radius: 2px;
+}
+a.rimando:hover, a.rimando.attivo { background: var(--blu-chiaro); }
+
+/* note in fondo al capitolo */
+.note-capitolo {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--filo);
+  font-size: 0.84em;
+  line-height: 1.55;
+}
+.note-capitolo::before {
+  content: 'Note';
+  display: block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--blu);
+  margin-bottom: 1rem;
+}
+.note-capitolo h2 { display: none; }
+.note-capitolo ol { padding-left: 2.2em; margin: 0; }
+.note-capitolo li { margin: 0 0 0.6em; padding-left: 0.2em; scroll-margin-top: 5rem; }
+.note-capitolo li::marker { font-family: var(--sans); font-size: 0.85em; color: var(--blu); }
+.note-capitolo li p { margin: 0; }
+.note-capitolo li:target { background: var(--evidenza); }
+.note-capitolo a.ritorno { margin-left: 0.4em; text-decoration: none; font-family: var(--sans); }
+
+/* note a margine (attivate da JS su schermi larghi) */
+.margine { display: none; }
+.con-margine .margine { display: block; position: absolute; top: 0; left: calc(100% + 3.2rem); width: 15.5rem; height: 100%; }
+.con-margine .note-capitolo { display: none; }
+.nota-margine {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--tenue);
+  transition: color 0.15s;
+}
+.nota-margine p { margin: 0 0 0.4em; }
+.nota-margine .n { font-family: var(--sans); font-weight: 700; color: var(--blu); margin-right: 0.35em; font-size: 0.9em; }
+.nota-margine.attivo { color: var(--inchiostro); }
+.nota-margine a { word-break: break-word; }
+
+/* fumetto per le note (schermi stretti o modalità "a comparsa") */
+.fumetto {
+  position: absolute;
+  z-index: 40;
+  width: min(26rem, calc(100vw - 2rem));
+  max-height: 50vh;
+  overflow: auto;
+  padding: 1rem 1.15rem 0.9rem;
+  background: var(--carta);
+  border: 1px solid var(--filo);
+  border-radius: 3px;
+  box-shadow: 0 12px 34px -12px rgb(0 0 0 / 0.35);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.fumetto p { margin: 0 0 0.5em; }
+.fumetto .n { font-family: var(--sans); font-weight: 700; color: var(--blu); margin-right: 0.4em; }
+.fumetto .piede-fumetto { display: flex; justify-content: space-between; gap: 1rem; margin-top: 0.6rem; padding-top: 0.5rem; border-top: 1px solid var(--filo); font-family: var(--sans); font-size: 0.72rem; }
+.fumetto .piede-fumetto button { border: 0; background: none; color: var(--blu); cursor: pointer; font: inherit; padding: 0; }
+@media (max-width: 40rem) {
+  .fumetto { position: fixed; left: 0 !important; right: 0; bottom: 0; top: auto !important; width: 100%; max-height: 55vh; border-radius: 10px 10px 0 0; padding-bottom: 1.4rem; }
+}
+
+/* fine capitolo */
+.fine-capitolo { margin: 4rem 0 2rem; }
+.sequenza { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 3rem 0 0; }
+.sequenza a {
+  display: block;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--filo);
+  border-radius: 2px;
+  text-decoration: none;
+  color: var(--inchiostro);
+}
+.sequenza a:hover { border-color: var(--blu); }
+.sequenza .succ { text-align: right; grid-column: 2; }
+.sequenza span { display: block; }
+.sequenza .titolo { font-family: var(--serif); font-size: 1rem; margin-top: 0.3rem; }
+.citare { margin-top: 2.5rem; font-size: 0.85rem; color: var(--tenue); }
+.citare summary { cursor: pointer; font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.citare p { margin: 0.8rem 0; padding: 0.8rem 1rem; background: var(--carta-2); border-radius: 2px; color: var(--inchiostro); user-select: all; }
+
+/* pannelli laterali (indice, preferenze) */
+.velo { position: fixed; inset: 0; z-index: 45; background: rgb(0 0 0 / 0.18); }
+.pannello {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 50;
+  width: min(24rem, 90vw);
+  overflow-y: auto;
+  padding: 1.4rem 1.5rem 3rem;
+  background: var(--carta);
+  border-right: 1px solid var(--filo);
+  box-shadow: 0 0 40px -10px rgb(0 0 0 / 0.3);
+  font-size: 0.95rem;
+}
+.pannello.sinistra { left: 0; }
+.pannello.destra { right: 0; border-right: 0; border-left: 1px solid var(--filo); }
+.pannello[hidden], .velo[hidden] { display: none; }
+.pannello .chiudi { position: absolute; top: 0.9rem; right: 0.9rem; }
+.pannello h2 { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; margin: 0.4rem 0 1.2rem; }
+.pannello .libro-pannello { margin-bottom: 1.4rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--filo); }
+.pannello .libro-pannello a { font-family: var(--sans); font-weight: 700; text-decoration: none; }
+.pannello .libro-pannello div { color: var(--tenue); font-size: 0.88rem; }
+.toc { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: 0; }
+.toc a { display: block; padding: 0.38rem 0; color: var(--inchiostro); text-decoration: none; line-height: 1.35; }
+.toc a:hover { color: var(--blu); }
+.toc .n { display: block; font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tenue); }
+.toc .corrente > a { color: var(--blu); font-weight: bold; }
+.toc .sezioni { list-style: none; margin: 0.2rem 0 0.6rem; padding: 0 0 0 0.9rem; border-left: 1px solid var(--filo); }
+.toc .sezioni a { font-size: 0.87rem; padding: 0.22rem 0 0.22rem 0.2rem; color: var(--tenue); }
+.toc .sezioni a.qui { color: var(--blu); box-shadow: -0.95rem 0 0 -0.85rem var(--blu); }
+.toc .gruppo { margin: 1rem 0 0.3rem; }
+.pannello .collegamenti { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid var(--filo); display: grid; gap: 0.45rem; font-family: var(--sans); font-size: 0.82rem; }
+
+.preferenza { margin: 0 0 1.4rem; }
+.preferenza > span { display: block; margin-bottom: 0.5rem; }
+.scelte { display: flex; gap: 0; border: 1px solid var(--filo); border-radius: 3px; overflow: hidden; }
+.scelte button {
+  flex: 1;
+  padding: 0.55rem 0.3rem;
+  border: 0;
+  border-right: 1px solid var(--filo);
+  background: transparent;
+  color: var(--inchiostro);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.scelte button:last-child { border-right: 0; }
+.scelte button[aria-pressed='true'] { background: var(--blu); color: var(--carta); }
+.scelte .campione { font-family: var(--serif); }
+.tasti { font-size: 0.85rem; color: var(--tenue); margin-top: 2rem; }
+.tasti dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.3rem 0.9rem; }
+.tasti dd { margin: 0; }
+kbd { font-family: var(--sans); font-size: 0.72rem; padding: 0.1rem 0.4rem; border: 1px solid var(--filo); border-bottom-width: 2px; border-radius: 3px; background: var(--carta-2); color: var(--inchiostro); }
+
+/* citazione da selezione */
+.cita-selezione {
+  position: absolute;
+  z-index: 35;
+  transform: translate(-50%, -100%);
+  margin-top: -0.5rem;
+  padding: 0.45rem 0.75rem;
+  border: 0;
+  border-radius: 3px;
+  background: var(--inchiostro);
+  color: var(--carta);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 6px 18px -8px rgb(0 0 0 / 0.5);
+}
+.avviso {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 60;
+  transform: translateX(-50%);
+  padding: 0.6rem 1rem;
+  border-radius: 3px;
+  background: var(--inchiostro);
+  color: var(--carta);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  box-shadow: 0 8px 24px -10px rgb(0 0 0 / 0.5);
+}
+.avviso button { margin-left: 0.8rem; border: 0; background: none; color: inherit; text-decoration: underline; cursor: pointer; font: inherit; }
+
+/* --------------------------------------------------------------------------
+   Apparati: note del libro, ricerca
+   -------------------------------------------------------------------------- */
+.filtri { display: flex; flex-wrap: wrap; gap: 0.8rem 1.4rem; align-items: center; margin: 0 0 2rem; padding: 1rem 0; border-bottom: 1px solid var(--filo); position: sticky; top: 0; background: var(--carta); z-index: 5; }
+.campo {
+  flex: 1 1 16rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--filo);
+  border-radius: 2px;
+  background: var(--carta);
+  color: var(--inchiostro);
+  font-family: var(--serif);
+  font-size: 1rem;
+}
+.campo:focus { outline: 2px solid var(--blu); outline-offset: -1px; }
+.filtri label { font-family: var(--sans); font-size: 0.8rem; display: inline-flex; gap: 0.4rem; align-items: center; }
+.filtri .conteggio { font-family: var(--sans); font-size: 0.75rem; color: var(--tenue); }
+
+.elenco-note h2 { font-size: 1.05rem; margin: 2.6rem 0 1rem; }
+.elenco-note h2 small { display: block; font-family: var(--sans); font-weight: 400; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tenue); margin-bottom: 0.25rem; }
+.elenco-note ol { list-style: none; padding: 0; margin: 0; }
+.elenco-note li { display: grid; grid-template-columns: 2.6rem 1fr; gap: 0.6rem; padding: 0.55rem 0; border-bottom: 1px solid var(--filo); font-size: 0.95rem; }
+.elenco-note li .n { font-family: var(--sans); font-weight: 700; color: var(--blu); text-decoration: none; font-size: 0.85rem; padding-top: 0.15rem; }
+.elenco-note li p { margin: 0 0 0.3rem; }
+.elenco-note li[hidden], .elenco-note section[hidden] { display: none; }
+
+.avvertenza { font-size: 0.88rem; color: var(--tenue); max-width: 42rem; }
+
+.risultati { list-style: none; margin: 0; padding: 0; }
+.risultati li { padding: 1.1rem 0; border-bottom: 1px solid var(--filo); }
+.risultati .dove { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--tenue); }
+.risultati a.titolo { display: block; font-family: var(--sans); font-weight: 700; font-size: 1.05rem; text-decoration: none; margin: 0.2rem 0 0.35rem; }
+.risultati p { margin: 0; font-size: 0.95rem; }
+.risultati mark { background: var(--evidenza); color: inherit; padding: 0 0.1em; }
+.risultati .sotto { list-style: none; padding: 0 0 0 1rem; margin: 0.5rem 0 0; border-left: 1px solid var(--filo); }
+.risultati .sotto li { padding: 0.35rem 0; border: 0; font-size: 0.9rem; }
+.filtro-libri { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.filtro-libri button { padding: 0.35rem 0.7rem; border: 1px solid var(--filo); border-radius: 2px; background: none; color: var(--inchiostro); font-family: var(--sans); font-size: 0.75rem; cursor: pointer; }
+.filtro-libri button[aria-pressed='true'] { background: var(--blu); border-color: var(--blu); color: var(--carta); }
+
+/* --------------------------------------------------------------------------
+   Stampa (anche per i PDF generati)
+   -------------------------------------------------------------------------- */
+@media print {
+  :root { --carta: #fff; --inchiostro: #000; --tenue: #444; --blu: #254a77; --corpo: 10.5pt; --interlinea: 1.45; --misura: 100%; }
+  .barra, .testata, .piede, .fine-capitolo, .sequenza, .citare, .margine, .fumetto, .pannello, .velo, .cita-selezione, .avviso, .non-stampare { display: none !important; }
+  .con-margine .note-capitolo { display: block !important; }
+  body { background: #fff; }
+  .lettore { padding: 0; }
+  .corpo > [data-p]::before { display: none; }
+  a { color: inherit; text-decoration: none; }
+  .intestazione { margin: 0 0 2.2em; }
+  .corpo > h2 { break-after: avoid; }
+  .corpo p { orphans: 3; widows: 3; }
+}

@@ -1,0 +1,107 @@
+---
+import Sito from '../layouts/Sito.astro';
+import { getLibri } from '../lib/libri';
+
+const libri = await getLibri();
+---
+
+<Sito titolo="Cerca">
+  <div class="colonna pagina" style="max-width: 46rem;">
+    <h1>Cerca nei testi</h1>
+    <div class="filtri" style="position: static;">
+      <input class="campo" type="search" id="domanda" placeholder="Una parola, un nome, una frase…" aria-label="Cerca nei testi" autocomplete="off" autofocus />
+      <div class="filtro-libri" role="group" aria-label="Limita a un libro">
+        <button type="button" data-libro="" aria-pressed="true">Tutti</button>
+        {libri.map((l) => <button type="button" data-libro={l.data.titolo} data-id={l.id} aria-pressed="false">{l.data.titolo}</button>)}
+      </div>
+    </div>
+    <p class="filtri-stato etichetta" id="stato" aria-live="polite"></p>
+    <ol class="risultati" id="risultati"></ol>
+  </div>
+
+  <script>
+    type Risultato = {
+      url: string;
+      excerpt: string;
+      meta: { title?: string; libro?: string; autore?: string };
+      sub_results?: { url: string; title: string; excerpt: string }[];
+    };
+
+    const campo = document.getElementById('domanda') as HTMLInputElement;
+    const stato = document.getElementById('stato')!;
+    const lista = document.getElementById('risultati')!;
+    const bottoni = [...document.querySelectorAll<HTMLButtonElement>('.filtro-libri button')];
+    let libro = '';
+    let pagefind: any = null;
+
+    const parametri = new URLSearchParams(location.search);
+    const daUrl = parametri.get('libro');
+    if (daUrl) {
+      const b = bottoni.find((x) => x.dataset.id === daUrl);
+      if (b) libro = b.dataset.libro!;
+    }
+    if (parametri.get('q')) campo.value = parametri.get('q')!;
+    const segna = () => bottoni.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.libro === libro)));
+    segna();
+
+    async function carica() {
+      if (pagefind) return pagefind;
+      try {
+        const percorso = '/pagefind/pagefind.js';
+        pagefind = await import(/* @vite-ignore */ percorso);
+        await pagefind.options({ excerptLength: 32 });
+        return pagefind;
+      } catch {
+        stato.textContent = 'La ricerca è disponibile nel sito pubblicato (indice non trovato).';
+        return null;
+      }
+    }
+
+    let giro = 0;
+    async function cerca() {
+      const q = campo.value.trim();
+      const mio = ++giro;
+      const url = new URL(location.href);
+      q ? url.searchParams.set('q', q) : url.searchParams.delete('q');
+      history.replaceState(null, '', url);
+      if (q.length < 2) {
+        lista.replaceChildren();
+        stato.textContent = '';
+        return;
+      }
+      const pf = await carica();
+      if (!pf) return;
+      const r = await pf.search(q, libro ? { filters: { libro } } : {});
+      if (mio !== giro) return;
+      const dati: Risultato[] = await Promise.all(r.results.slice(0, 30).map((x: any) => x.data()));
+      if (mio !== giro) return;
+      stato.textContent = r.results.length ? `${r.results.length} capitoli` : 'Nessun risultato';
+      lista.replaceChildren(
+        ...dati.map((d) => {
+          const li = document.createElement('li');
+          const sotto = (d.sub_results ?? []).filter((s) => s.url.includes('#')).slice(0, 3);
+          li.innerHTML = `
+            <span class="dove">${d.meta.autore ?? ''} · ${d.meta.libro ?? ''}</span>
+            <a class="titolo" href="${d.url}">${d.meta.title ?? ''}</a>
+            <p>${d.excerpt}</p>
+            ${sotto.length ? `<ul class="sotto">${sotto.map((s) => `<li><a href="${s.url}">${s.title}</a> — ${s.excerpt}</li>`).join('')}</ul>` : ''}`;
+          return li;
+        }),
+      );
+    }
+
+    let t: number | undefined;
+    campo.addEventListener('input', () => {
+      clearTimeout(t);
+      t = window.setTimeout(cerca, 180);
+    });
+    bottoni.forEach((b) =>
+      b.addEventListener('click', () => {
+        libro = b.dataset.libro!;
+        segna();
+        cerca();
+      }),
+    );
+    if (campo.value) cerca();
+  </script>
+</Sito>

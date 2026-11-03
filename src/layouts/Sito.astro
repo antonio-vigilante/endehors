@@ -1,0 +1,37 @@
+---
+import Base from './Base.astro';
+import Marchio from '../components/Marchio.astro';
+
+interface Props {
+  titolo?: string;
+  descrizione?: string;
+  immagine?: string;
+}
+const props = Astro.props;
+const percorso = Astro.url.pathname;
+const voci = [
+  { href: '/', testo: 'catalogo' },
+  { href: '/info/', testo: 'info' },
+  { href: '/cerca/', testo: 'cerca' },
+];
+---
+
+<Base {...props}>
+  <div class="contenitore">
+    <header class="testata">
+      <Marchio />
+      <nav class="nav-sito" aria-label="Navigazione principale">
+        {voci.map((v) => <a href={v.href} aria-current={percorso === v.href ? 'page' : undefined}>{v.testo}</a>)}
+      </nav>
+    </header>
+  </div>
+  <main>
+    <slot />
+  </main>
+  <footer class="piede">
+    <div class="contenitore">
+      <span><span style="font-family: var(--marchio); font-size: 1.15rem;">endehors</span> · progetto culturale libertario a cura di Antonio Vigilante</span>
+      <span>Tutti i testi sono disponibili con licenze Creative Commons · <a href="/info/">info</a></span>
+    </div>
+  </footer>
+</Base>

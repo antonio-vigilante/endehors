@@ -1,0 +1,162 @@
+---
+import { Image } from 'astro:assets';
+import Sito from '../../../layouts/Sito.astro';
+import { getLibri, getCapitoli, getNote, inline, senzaMarkup, parole, tempoLettura, type Libro } from '../../../lib/libri';
+
+export async function getStaticPaths() {
+  const libri = await getLibri();
+  return libri.map((libro) => ({ params: { libro: libro.id }, props: { libro } }));
+}
+
+const { libro } = Astro.props as { libro: Libro };
+const d = libro.data;
+const capitoli = await getCapitoli(libro.id);
+const note = await getNote(libro.id);
+const totale = capitoli.reduce((s, c) => s + parole(c.entry.rendered?.html ?? ''), 0);
+
+const gruppi = [
+  { nome: 'Apparati', voci: capitoli.filter((c) => c.entry.data.tipo === 'apparato') },
+  { nome: d.curatore ? 'Il testo' : '', voci: capitoli.filter((c) => c.entry.data.tipo !== 'apparato') },
+].filter((g) => g.voci.length);
+
+const responsabilita = [
+  d.traduttore && d.traduttore !== d.curatore && `traduzione di ${d.traduttore}`,
+  d.traduttore && d.traduttore === d.curatore && `traduzione e cura di ${d.curatore}`,
+  d.curatore && d.traduttore !== d.curatore && `a cura di ${d.curatore}`,
+].filter(Boolean);
+---
+
+<Sito titolo={`${d.titolo} — ${d.autore}`} descrizione={senzaMarkup(d.descrizione[0])}>
+  <div class="contenitore">
+    <article class="scheda">
+      <div class="copertina">
+        <Image src={d.copertina} alt={`Copertina di ${d.titolo}`} width={544} loading="eager" />
+      </div>
+      <div>
+        <p class="etichetta">{d.autore}</p>
+        <h1>{d.titolo}</h1>
+        {d.sottotitolo && <p class="sottotitolo">{d.sottotitolo}</p>}
+        {responsabilita.length > 0 && <p class="responsabilita">{responsabilita.join(' · ')}</p>}
+
+        <blockquote class="citazione" set:html={`“${inline(d.citazione)}”`} />
+        {d.descrizione.map((p) => <p set:html={inline(p)} />)}
+
+        <div class="azioni">
+          <a class="bottone pieno" href={capitoli[0].url}>Inizia a leggere</a>
+          {d.download.epub && (
+            <a class="bottone" href={d.download.epub} download>
+              ePub
+            </a>
+          )}
+          {d.download.pdf && (
+            <a class="bottone" href={d.download.pdf} download>
+              PDF
+            </a>
+          )}
+          {d.acquista && (
+            <a class="bottone" href={d.acquista} rel="external">
+              Acquista
+            </a>
+          )}
+        </div>
+        <p class="riprendi" data-riprendi={libro.id}></p>
+
+        {d.note_autori?.map((p) => <p style="font-size: 0.95rem;" set:html={inline(p)} />)}
+
+        <dl class="dati">
+          {d.titolo_originale && (
+            <>
+              <dt>Originale</dt>
+              <dd set:html={inline(d.titolo_originale)} />
+            </>
+          )}
+          {d.edizione && (
+            <>
+              <dt>Edizione</dt>
+              <dd set:html={inline(d.edizione)} />
+            </>
+          )}
+          {d.formati && (
+            <>
+              <dt>Formati</dt>
+              <dd>{d.formati}</dd>
+            </>
+          )}
+          <dt>Licenza</dt>
+          <dd>
+            <a href={d.licenza.url} rel="license">{d.licenza.nome}</a>
+            {d.licenza.testo && <span set:html={` — ${inline(d.licenza.testo)}`} />}
+          </dd>
+          {d.isbn && (
+            <>
+              <dt>ISBN</dt>
+              <dd>{d.isbn}</dd>
+            </>
+          )}
+          {d.doi && (
+            <>
+              <dt>DOI</dt>
+              <dd>
+                <a href={`https://doi.org/${d.doi}`}>{d.doi}</a>
+              </dd>
+            </>
+          )}
+          {d.crediti && (
+            <>
+              <dt>Copertina</dt>
+              <dd set:html={inline(d.crediti.replace(/^In copertina:\s*/, ''))} />
+            </>
+          )}
+          <dt>Lettura</dt>
+          <dd>{totale.toLocaleString('it-IT')} parole · circa {tempoLettura(totale)} · {note.length} note</dd>
+        </dl>
+      </div>
+    </article>
+
+    <nav class="indice-libro" aria-labelledby="titolo-indice">
+      <h2 id="titolo-indice">Indice</h2>
+      {
+        gruppi.map((g) => (
+          <>
+            {gruppi.length > 1 && g.nome && <p class="etichetta gruppo">{g.nome}</p>}
+            <ol>
+              {g.voci.map((c) => (
+                <li>
+                  <a class="voce" href={c.url}>
+                    <span class="num">{c.etichetta && (/^\d+$|^[IVXLC]+$/.test(c.etichetta) ? `Cap. ${c.etichetta}` : c.etichetta)}</span>
+                    <span class="titolo">
+                      {c.titolo}
+                      {c.entry.data.sottotitolo && <em>. {c.entry.data.sottotitolo}</em>}
+                    </span>
+                    <span class="durata">{tempoLettura(parole(c.entry.rendered?.html ?? ''))}</span>
+                  </a>
+                  {c.sezioni.length > 0 && (
+                    <details>
+                      <summary>{c.sezioni.length} sezioni</summary>
+                      <ol>
+                        {c.sezioni.map((s) => (
+                          <li>
+                            <a href={`${c.url}#${s.id}`}>{s.testo}</a>
+                          </li>
+                        ))}
+                      </ol>
+                    </details>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </>
+        ))
+      }
+      <div class="strumenti-libro">
+        {note.length > 0 && <a href={`/libri/${libro.id}/note/`}>Tutte le note ({note.length})</a>}
+        <a href={`/libri/${libro.id}/integrale/`}>Testo integrale in una pagina</a>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    import { mostraRipresa } from '../../../scripts/posizione';
+    mostraRipresa();
+  </script>
+</Sito>

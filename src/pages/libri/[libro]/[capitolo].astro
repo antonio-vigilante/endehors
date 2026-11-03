@@ -1,0 +1,248 @@
+---
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Marchio from '../../../components/Marchio.astro';
+import Icona from '../../../components/Icona.astro';
+import { getLibri, getCapitoli, getNote, parole, tempoLettura, urlLibro, type Libro, type Voce } from '../../../lib/libri';
+
+export async function getStaticPaths() {
+  const libri = await getLibri();
+  const percorsi = [];
+  for (const libro of libri) {
+    const capitoli = await getCapitoli(libro.id);
+    for (const voce of capitoli) {
+      percorsi.push({ params: { libro: libro.id, capitolo: voce.slug }, props: { libro, voce, capitoli } });
+    }
+  }
+  return percorsi;
+}
+
+const { libro, voce, capitoli } = Astro.props as { libro: Libro; voce: Voce; capitoli: Voce[] };
+const d = libro.data;
+const c = voce.entry.data;
+const { Content } = await render(voce.entry);
+const prec = capitoli[voce.indice - 1];
+const succ = capitoli[voce.indice + 1];
+const nParole = parole(voce.entry.rendered?.html ?? '');
+const noteLibro = await getNote(libro.id);
+const noteCap = noteLibro.filter((n) => n.capitolo.slug === voce.slug).length;
+
+const numero = c.numero ? (/^\d+$|^[IVXLC]+$/.test(c.numero) ? `Capitolo ${c.numero}` : c.numero) : '';
+const etichettaBreve = (v: Voce) =>
+  v.etichetta ? (/^\d+$|^[IVXLC]+$/.test(v.etichetta) ? `Cap. ${v.etichetta}` : v.etichetta.replace('Capitolo', 'Cap.')) : '';
+
+const autoreTesto = c.autore ?? (c.tipo === 'apparato' && d.curatore ? d.curatore : d.autore);
+const url = new URL(voce.url, Astro.site).href;
+const cura = [d.traduttore && `trad. di ${d.traduttore}`, d.curatore && `a cura di ${d.curatore}`]
+  .filter((x, i, a) => x && a.indexOf(x) === i)
+  .join(', ');
+const titoloCapitolo = [numero, c.titolo].filter(Boolean).join('. ');
+const citazioneBase =
+  c.tipo === 'apparato'
+    ? `${autoreTesto}, «${c.titolo}${c.sottotitolo ? `. ${c.sottotitolo}` : ''}», in ${d.autore}, ${d.titolo}${cura ? `, ${cura}` : ''}, endehors, ${d.anno}`
+    : `${d.autore}, ${d.titolo}${d.sottotitolo ? `. ${d.sottotitolo}` : ''}${cura ? `, ${cura}` : ''}, endehors, ${d.anno}, ${titoloCapitolo}`;
+---
+
+<Base titolo={`${c.titolo} — ${d.titolo}`} descrizione={`${d.autore}, ${d.titolo}: ${titoloCapitolo}. Testo integrale.`} classe="pagina-lettore">
+  <header class="barra" data-pagefind-ignore="all">
+    <div class="barra-interna">
+      <Marchio compatto />
+      <div class="percorso">
+        <a href={urlLibro(libro.id)}>{d.titolo}</a><span class="capitolo-corrente"><span class="sep">/</span>{etichettaBreve(voce) || c.titolo}</span>
+      </div>
+      <div class="barra-strumenti">
+        <button class="icona" type="button" data-apri="indice" aria-controls="pannello-indice" aria-expanded="false" title="Indice (i)">
+          <Icona nome="indice" /><span class="testo-icona">Indice</span>
+        </button>
+        <a class="icona" href={`/cerca/?libro=${libro.id}`} title="Cerca (/)" aria-label="Cerca"><Icona nome="cerca" /></a>
+        <button class="icona" type="button" data-apri="preferenze" aria-controls="pannello-preferenze" aria-expanded="false" title="Preferenze di lettura">
+          <span style="font-family: var(--serif); font-size: 1.05rem;">A<span style="font-size: 0.8em;">a</span></span>
+        </button>
+      </div>
+    </div>
+    <div class="avanzamento" aria-hidden="true"></div>
+  </header>
+
+  <div class="velo" hidden></div>
+
+  <aside id="pannello-indice" class="pannello sinistra" hidden aria-label="Indice del libro" data-pagefind-ignore="all">
+    <button class="icona chiudi" type="button" data-chiudi aria-label="Chiudi"><Icona nome="chiudi" /></button>
+    <div class="libro-pannello">
+      <a href={urlLibro(libro.id)}>{d.titolo}</a>
+      <div>{d.autore}</div>
+    </div>
+    <h2>Indice</h2>
+    <ol class="toc">
+      {
+        capitoli.map((v, i) => (
+          <>
+            {i > 0 && v.entry.data.tipo !== 'apparato' && capitoli[i - 1].entry.data.tipo === 'apparato' && (
+              <li class="gruppo etichetta">Il testo</li>
+            )}
+            <li class={v.slug === voce.slug ? 'corrente' : undefined}>
+              <a href={v.url} aria-current={v.slug === voce.slug ? 'page' : undefined}>
+                {v.etichetta && <span class="n">{etichettaBreve(v)}</span>}
+                {v.titolo}
+              </a>
+              {v.slug === voce.slug && v.sezioni.length > 0 && (
+                <ul class="sezioni">
+                  {v.sezioni.map((s) => (
+                    <li>
+                      <a href={`#${s.id}`} data-sezione={s.id}>
+                        {s.testo}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          </>
+        ))
+      }
+    </ol>
+    <div class="collegamenti">
+      <a href={urlLibro(libro.id)}>Scheda del libro</a>
+      {noteLibro.length > 0 && <a href={`/libri/${libro.id}/note/`}>Tutte le note del libro</a>}
+      <a href={`/libri/${libro.id}/integrale/`}>Testo integrale in una pagina</a>
+      {d.download.epub && <a href={d.download.epub} download>Scarica ePub</a>}
+      {d.download.pdf && <a href={d.download.pdf} download>Scarica PDF</a>}
+    </div>
+  </aside>
+
+  <aside id="pannello-preferenze" class="pannello destra" hidden aria-label="Preferenze di lettura" data-pagefind-ignore="all">
+    <button class="icona chiudi" type="button" data-chiudi aria-label="Chiudi"><Icona nome="chiudi" /></button>
+    <h2>Lettura</h2>
+    <div class="preferenza">
+      <span class="etichetta">Tema</span>
+      <div class="scelte" data-pref="tema">
+        <button type="button" data-valore="">Carta</button>
+        <button type="button" data-valore="seppia">Seppia</button>
+        <button type="button" data-valore="notte">Notte</button>
+      </div>
+    </div>
+    <div class="preferenza">
+      <span class="etichetta">Dimensione del testo</span>
+      <div class="scelte" data-pref="corpo">
+        <button type="button" class="campione" data-valore="1" style="font-size: 0.75rem" aria-label="Molto piccolo">A</button>
+        <button type="button" class="campione" data-valore="2" style="font-size: 0.85rem" aria-label="Piccolo">A</button>
+        <button type="button" class="campione" data-valore="" style="font-size: 0.95rem" aria-label="Normale">A</button>
+        <button type="button" class="campione" data-valore="4" style="font-size: 1.08rem" aria-label="Grande">A</button>
+        <button type="button" class="campione" data-valore="5" style="font-size: 1.22rem" aria-label="Molto grande">A</button>
+      </div>
+    </div>
+    <div class="preferenza">
+      <span class="etichetta">Interlinea</span>
+      <div class="scelte" data-pref="interlinea">
+        <button type="button" data-valore="stretta">Stretta</button>
+        <button type="button" data-valore="">Normale</button>
+        <button type="button" data-valore="ampia">Ampia</button>
+      </div>
+    </div>
+    <div class="preferenza">
+      <span class="etichetta">Colonna</span>
+      <div class="scelte" data-pref="misura">
+        <button type="button" data-valore="stretta">Stretta</button>
+        <button type="button" data-valore="">Normale</button>
+        <button type="button" data-valore="ampia">Larga</button>
+      </div>
+    </div>
+    <div class="preferenza">
+      <span class="etichetta">Allineamento</span>
+      <div class="scelte" data-pref="giustifica">
+        <button type="button" data-valore="">A sinistra</button>
+        <button type="button" data-valore="si">Giustificato</button>
+      </div>
+    </div>
+    <div class="preferenza">
+      <span class="etichetta">Note</span>
+      <div class="scelte" data-pref="note">
+        <button type="button" data-valore="">A margine</button>
+        <button type="button" data-valore="comparsa">A comparsa</button>
+      </div>
+    </div>
+    <div class="preferenza">
+      <span class="etichetta">Numeri di paragrafo</span>
+      <div class="scelte" data-pref="paragrafi">
+        <button type="button" data-valore="">Al passaggio</button>
+        <button type="button" data-valore="si">Sempre</button>
+      </div>
+    </div>
+    <div class="tasti">
+      <span class="etichetta">Scorciatoie</span>
+      <dl>
+        <dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>capitolo precedente / successivo</dd>
+        <dt><kbd>i</kbd></dt><dd>indice</dd>
+        <dt><kbd>/</kbd></dt><dd>cerca</dd>
+        <dt><kbd>n</kbd></dt><dd>note del capitolo</dd>
+        <dt><kbd>Esc</kbd></dt><dd>chiude pannelli e note</dd>
+      </dl>
+    </div>
+  </aside>
+
+  <main class="lettore">
+    <article
+      class="testo"
+      id="testo"
+      data-pagefind-body
+      data-libro={libro.id}
+      data-capitolo={voce.slug}
+      data-titolo-capitolo={c.titolo}
+      data-citazione={citazioneBase}
+      data-url={url}
+      data-prec={prec?.url}
+      data-succ={succ?.url}
+    >
+      <span hidden data-pagefind-filter="libro">{d.titolo}</span>
+      <span hidden data-pagefind-meta="libro">{d.titolo}</span>
+      <span hidden data-pagefind-meta="autore">{d.autore}</span>
+      <header class="intestazione">
+        {numero && <span class="numero etichetta">{numero}</span>}
+        <h1>{c.titolo}</h1>
+        {c.sottotitolo && <p class="sottotitolo">{c.sottotitolo}</p>}
+        {c.autore && <p class="autore">{c.autore}</p>}
+        <p class="metadati" data-pagefind-ignore>
+          {tempoLettura(nParole)} di lettura{noteCap > 0 && ` · ${noteCap} note`}
+        </p>
+      </header>
+      <div class="corpo">
+        <Content />
+      </div>
+      <div class="margine" aria-hidden="true" data-pagefind-ignore="all"></div>
+    </article>
+
+    <footer class="testo fine-capitolo" data-pagefind-ignore="all">
+      <nav class="sequenza" aria-label="Capitoli">
+        {
+          prec && (
+            <a href={prec.url} rel="prev">
+              <span class="etichetta">← {etichettaBreve(prec) || 'Precedente'}</span>
+              <span class="titolo">{prec.titolo}</span>
+            </a>
+          )
+        }
+        {
+          succ ? (
+            <a href={succ.url} rel="next" class="succ">
+              <span class="etichetta">{etichettaBreve(succ) || 'Successivo'} →</span>
+              <span class="titolo">{succ.titolo}</span>
+            </a>
+          ) : (
+            <a href={urlLibro(libro.id)} class="succ">
+              <span class="etichetta">Fine ↩</span>
+              <span class="titolo">Torna alla scheda del libro</span>
+            </a>
+          )
+        }
+      </nav>
+      <details class="citare">
+        <summary>Come citare questo capitolo</summary>
+        <p>{citazioneBase}, {url}</p>
+      </details>
+    </footer>
+  </main>
+
+  <script>
+    import { avviaLettore } from '../../../scripts/lettore';
+    avviaLettore();
+  </script>
+</Base>

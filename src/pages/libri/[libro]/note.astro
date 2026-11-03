@@ -1,0 +1,92 @@
+---
+import Sito from '../../../layouts/Sito.astro';
+import { getLibri, getNote, urlLibro, type Libro, type Nota } from '../../../lib/libri';
+
+export async function getStaticPaths() {
+  const libri = await getLibri();
+  const out = [];
+  for (const libro of libri) {
+    const note = await getNote(libro.id);
+    if (note.length) out.push({ params: { libro: libro.id }, props: { libro, note } });
+  }
+  return out;
+}
+
+const { libro, note } = Astro.props as { libro: Libro; note: Nota[] };
+const d = libro.data;
+const perCapitolo = new Map<string, Nota[]>();
+for (const n of note) {
+  const k = n.capitolo.slug;
+  if (!perCapitolo.has(k)) perCapitolo.set(k, []);
+  perCapitolo.get(k)!.push(n);
+}
+const curatore = note.filter((n) => n.curatore).length;
+---
+
+<Sito titolo={`Note — ${d.titolo}`}>
+  <div class="colonna pagina" style="max-width: 46rem;">
+    <p class="etichetta" style="margin-top: 2.5rem;"><a href={urlLibro(libro.id)}>{d.autore}, {d.titolo}</a></p>
+    <h1 style="margin-top: 0.4rem;">Note</h1>
+    <p class="intro">Tutte le {note.length} note del libro, capitolo per capitolo. Il numero riporta al punto del testo in cui la nota è richiamata.</p>
+
+    <div class="filtri non-stampare">
+      <input class="campo" type="search" placeholder="Filtra le note…" aria-label="Filtra le note" data-filtro />
+      {
+        curatore > 0 && (
+          <label>
+            <input type="checkbox" data-curatore /> solo note del curatore o del traduttore ({curatore})
+          </label>
+        )
+      }
+      <span class="conteggio" data-conteggio aria-live="polite"></span>
+    </div>
+
+    <div class="elenco-note">
+      {
+        [...perCapitolo.values()].map((gruppo) => {
+          const v = gruppo[0].capitolo;
+          return (
+            <section>
+              <h2>
+                {v.etichetta && <small>{/^\d+$|^[IVXLC]+$/.test(v.etichetta) ? `Capitolo ${v.etichetta}` : v.etichetta}</small>}
+                <a href={v.url} style="color: inherit; text-decoration: none;">
+                  {v.titolo}
+                </a>
+              </h2>
+              <ol>
+                {gruppo.map((n) => (
+                  <li data-curatore={n.curatore ? '1' : undefined} data-testo={n.testo.toLowerCase()}>
+                    <a class="n" href={n.url} title="Vai al punto del testo">
+                      {n.label}
+                    </a>
+                    <div set:html={n.html.includes('<p') ? n.html : `<p>${n.html}</p>`} />
+                  </li>
+                ))}
+              </ol>
+            </section>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <script>
+    const campo = document.querySelector<HTMLInputElement>('[data-filtro]')!;
+    const solo = document.querySelector<HTMLInputElement>('[data-curatore]');
+    const conteggio = document.querySelector<HTMLElement>('[data-conteggio]')!;
+    const voci = [...document.querySelectorAll<HTMLLIElement>('.elenco-note li')];
+    const filtra = () => {
+      const q = campo.value.trim().toLowerCase();
+      let n = 0;
+      for (const li of voci) {
+        const ok = (!q || li.dataset.testo!.includes(q)) && (!solo?.checked || li.dataset.curatore === '1');
+        li.hidden = !ok;
+        if (ok) n++;
+      }
+      document.querySelectorAll<HTMLElement>('.elenco-note section').forEach((s) => (s.hidden = !s.querySelector('li:not([hidden])')));
+      conteggio.textContent = q || solo?.checked ? `${n} note` : '';
+    };
+    campo.addEventListener('input', filtra);
+    solo?.addEventListener('change', filtra);
+  </script>
+</Sito>

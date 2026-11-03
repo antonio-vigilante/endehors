@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import Sito from '../layouts/Sito.astro';
+import logo from '../assets/logo-endehors.png';
+---
+
+<Sito titolo="Info">
+  <article class="colonna pagina">
+    <h1>Info</h1>
+    <Image src={logo} alt="Il marchio di endehors" width={100} class="logo-grande" style="margin: 0 0 2rem;" />
+    <p class="intro">
+      <span style="font-family: var(--marchio); font-size: 1.3em;">endehors</span> è un progetto culturale libertario a cura di Antonio Vigilante.
+    </p>
+    <p>Il nome è un omaggio a Zo d’Axa e Émile Armand.</p>
+    <p>Tutti i testi sono disponibili con licenze Creative Commons: si possono leggere per intero su questo sito, scaricare in formato ePub e PDF e far circolare liberamente, nel rispetto della licenza indicata nella scheda di ciascun libro.</p>
+
+    <h2 style="font-size: 1.1rem; margin-top: 3rem;">Come leggere</h2>
+    <p>Ogni libro è diviso in capitoli. Durante la lettura:</p>
+    <ul>
+      <li>il pulsante <strong>Indice</strong> (o il tasto <kbd>i</kbd>) apre il sommario del libro, con le sezioni del capitolo corrente;</li>
+      <li>le <strong>note</strong> compaiono a margine sugli schermi larghi e in un riquadro sugli schermi piccoli; tutte le note di un libro sono raccolte nella pagina <em>Note</em>;</li>
+      <li>il pannello <strong>Aa</strong> regola dimensione del testo, interlinea, larghezza della colonna, tema (carta, seppia, notte) e presentazione delle note;</li>
+      <li>i paragrafi sono numerati: passando sul margine sinistro compare il numero, e cliccandolo si copia il collegamento a quel punto preciso; selezionando un passo si può copiare la citazione già completa di riferimento;</li>
+      <li>il sito ricorda dove avete interrotto la lettura di ciascun libro.</li>
+    </ul>
+
+    <h2 style="font-size: 1.1rem; margin-top: 3rem;">Archivio</h2>
+    <p>Il blog storico del progetto è su <a href="https://noblogo.org/endehors">noblogo.org/endehors</a>.</p>
+  </article>
+</Sito>

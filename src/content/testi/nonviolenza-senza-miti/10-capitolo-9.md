@@ -1,0 +1,12 @@
+---
+titolo: "È possibile incidere sulle scelte politiche attraverso le manifestazioni"
+numero: "9"
+tipo: "testo"
+ordine: 10
+---
+
+Oltre che inventore dei Centri di Orientamento Sociale, Capitini è stato l’ideatore della Marcia della Pace. Se i primi sono un esperimento non più tentato, la seconda è un appuntamento fisso ed una delle espressioni salienti del mondo nonviolento in Italia. Questo fatto mi sembra significativo. La nonviolenza ha due strumenti per incidere nella realtà: le strutture e le manifestazioni. Le prime bisognerebbe chiamarle più propriamente contro-strutture, perché si oppongono alle strutture dominanti e diffuse. Possiamo considerare contro-strutture i Cos di Capitini, i gruppi maieutici di Danilo Dolci, l’Arca di Lanza del Vasto, ma anche la scuola di Barbiana. Ora, sembra che l’idea di una nonviolenza strutturale o controstrutturale sia stata progressivamente abbandonata in favore dell’idea di una nonviolenza delle manifestazioni. La marcia, il sit-in, la protesta sono gli strumenti di gran lunga privilegiati, mentre è totalmente scomparsa, ad esempio, l’idea di una scuola popolare. L’idea dominante nel mondo nonviolento è che il potere dipende dall’opinione pubblica, per cui una manifestazione imponente dovrebbe intimorire il potere politico e indurlo a cambiare posizione. Le cose invece vanno diversamente. Il potere politico sa bene che l’opinione pubblica è incostante, poco tenace, si stanca e di distrae facilmente, e che le manifestazioni non sempre implicano un impegno reale per quella causa. Se così non fosse, le straordinarie manifestazioni contro la seconda guerra in Iraq avrebbero bloccato quel conflitto. Milioni di persone, invece, hanno manifestato contro una guerra voluta con arroganza inaudita dallo stato più potente del mondo, senza che la loro voce abbia avuto il potere di operare alcuna conversione o di impensierire il potere politico per la mancanza di consenso. La guerra è cominciata e quell’esercito di milioni di oppositori ha rotto le fila, si è disperso — si è, forse, dedicato ad altro.
+
+Non condivido l’opinione di chi pensa che le manifestazioni siano assolutamente inutili — hanno la stessa efficacia politica del mangiare panini in continuazione, per Christoph Türcke[^6] —, ma penso che questa convinzione sia meno pericolosa del mito dell’efficacia di un’opinione pubblica non sorretta da strutture stabili di opposizione politica.
+
+[^6]: Ch. Türke, Violenza e tabù. Percorsi filosofici di confine, Garzanti, Milano 1991.

@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import Sito from '../layouts/Sito.astro';
+import { getLibri, inline, urlLibro, getCapitoli } from '../lib/libri';
+
+const libri = await getLibri();
+const primi = await Promise.all(libri.map(async (l) => (await getCapitoli(l.id))[0]?.url));
+---
+
+<Sito>
+  <div class="contenitore">
+    <section class="presentazione">
+      <span class="etichetta">Officina di controeditoria</span>
+      <p>Progetto culturale libertario a cura di Antonio Vigilante.</p>
+    </section>
+
+    <ol class="catalogo">
+      {
+        libri.map((l, i) => (
+          <li>
+            <a href={urlLibro(l.id)} tabindex="-1" aria-hidden="true">
+              <Image src={l.data.copertina} alt="" width={288} />
+            </a>
+            <div>
+              <p class="autore">{l.data.autore}</p>
+              <h2>
+                <a href={urlLibro(l.id)}>{l.data.titolo}</a>
+              </h2>
+              {l.data.sottotitolo && <p class="sottotitolo">{l.data.sottotitolo}</p>}
+              <blockquote set:html={`“${inline(l.data.citazione)}”`} />
+              <div class="azioni">
+                <a class="bottone pieno" href={primi[i]}>Leggi</a>
+                <a class="bottone" href={urlLibro(l.id)}>Scheda e indice</a>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</Sito>

@@ -1,0 +1,47 @@
+---
+import '@fontsource/im-fell-dw-pica/400.css';
+import '../styles/global.css';
+
+interface Props {
+  titolo?: string;
+  descrizione?: string;
+  immagine?: string;
+  classe?: string;
+}
+const { titolo, descrizione = 'endehors — progetto culturale libertario a cura di Antonio Vigilante. Testi integrali da leggere online e scaricare.', immagine, classe } = Astro.props;
+const titoloCompleto = titolo ? `${titolo} · endehors` : 'endehors';
+const canonico = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titoloCompleto}</title>
+    <meta name="description" content={descrizione} />
+    <link rel="canonical" href={canonico} />
+    <meta property="og:title" content={titoloCompleto} />
+    <meta property="og:description" content={descrizione} />
+    <meta property="og:type" content="website" />
+    {immagine && <meta property="og:image" content={new URL(immagine, Astro.site)} />}
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/font/texgyreadventor-bold.woff" as="font" type="font/woff" crossorigin />
+    <meta name="theme-color" content="#fbf9f4" />
+    <script is:inline>
+      // applica le preferenze di lettura prima del disegno della pagina
+      try {
+        const p = JSON.parse(localStorage.getItem('endehors:preferenze') || '{}');
+        const r = document.documentElement;
+        for (const k of ['tema', 'corpo', 'interlinea', 'misura', 'giustifica', 'paragrafi', 'note']) {
+          if (p[k]) r.dataset[k] = p[k];
+        }
+      } catch (e) {}
+    </script>
+    <slot name="head" />
+  </head>
+  <body class={classe}>
+    <slot />
+  </body>
+</html>

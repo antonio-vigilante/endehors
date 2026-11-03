@@ -1,0 +1,14 @@
+---
+interface Props {
+  nome: 'indice' | 'cerca' | 'chiudi' | 'note' | 'su';
+}
+const { nome } = Astro.props;
+---
+
+<svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round">
+  {nome === 'indice' && <path d="M4 6h16M4 12h11M4 18h14" />}
+  {nome === 'cerca' && <><circle cx="10.5" cy="10.5" r="6.5" /><path d="m20 20-4.8-4.8" /></>}
+  {nome === 'chiudi' && <path d="M6 6l12 12M18 6 6 18" />}
+  {nome === 'note' && <path d="M6 4h9l4 4v12H6zM14 4v5h5M9 13h7M9 16.5h5" />}
+  {nome === 'su' && <path d="M12 19V5M6 11l6-6 6 6" />}
+</svg>

@@ -1,0 +1,119 @@
+---
+/**
+ * Il libro intero in una sola pagina: per chi preferisce leggere senza
+ * cambiare pagina e come sorgente per la stampa e per i PDF generati
+ * (npm run pdf). Non viene indicizzata dalla ricerca.
+ */
+import { Image } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import logo from '../../../assets/logo-endehors.png';
+import { getLibri, getCapitoli, inline, urlLibro, type Libro, type Voce } from '../../../lib/libri';
+
+export async function getStaticPaths() {
+  const libri = await getLibri();
+  return Promise.all(libri.map(async (libro) => ({ params: { libro: libro.id }, props: { libro, capitoli: await getCapitoli(libro.id) } })));
+}
+
+const { libro, capitoli } = Astro.props as { libro: Libro; capitoli: Voce[] };
+const d = libro.data;
+const prefissa = (html: string, p: string) => html.replace(/ id="/g, ` id="${p}--`).replace(/href="#/g, `href="#${p}--`);
+const numero = (v: Voce) => (v.etichetta ? (/^\d+$|^[IVXLC]+$/.test(v.etichetta) ? `Capitolo ${v.etichetta}` : v.etichetta) : '');
+---
+
+<Base titolo={`${d.titolo} — testo integrale`} classe="pagina-integrale">
+  <style is:global>
+    .pagina-integrale .lettore { padding-bottom: 6rem; }
+    .integrale-avviso { max-width: var(--misura); margin: 1.5rem auto 0; font-family: var(--sans); font-size: 0.8rem; color: var(--tenue); display: flex; gap: 1.2rem; flex-wrap: wrap; }
+    .frontespizio { text-align: center; padding: 5rem 0 4rem; }
+    .frontespizio .autore { font-variant: small-caps; letter-spacing: 0.06em; font-size: 1.25em; margin: 0 0 1.5rem; }
+    .frontespizio h1 { font-size: 2.4em; margin: 0 0 0.6rem; }
+    .frontespizio .sottotitolo { font-style: italic; font-size: 1.2em; margin: 0; }
+    .frontespizio .cura { font-style: italic; margin: 2rem 0 0; }
+    .frontespizio .editore { margin: 4rem auto 0; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; font-family: var(--marchio); font-size: 1.3em; }
+    .frontespizio .editore img { height: 4.5rem; width: auto; }
+    .colophon { font-size: 0.8em; color: var(--tenue); padding: 2rem 0; }
+    .colophon p { margin: 0 0 0.6em; }
+    .indice-integrale ol { list-style: none; padding: 0; }
+    .indice-integrale li { display: flex; gap: 0.6rem; padding: 0.25rem 0; }
+    .indice-integrale li a { color: inherit; text-decoration: none; }
+    .indice-integrale .n { font-family: var(--sans); font-size: 0.75em; color: var(--tenue); min-width: 6.5rem; padding-top: 0.2em; }
+    .capitolo-integrale { padding-top: 3rem; }
+    .capitolo-integrale + .capitolo-integrale { border-top: 1px solid var(--filo); margin-top: 4rem; }
+    @page { size: 148mm 210mm; margin: 18mm 17mm 20mm; @bottom-center { content: counter(page); font-family: Georgia, serif; font-size: 9pt; color: #555; } }
+    @page :first { @bottom-center { content: none; } }
+    @media print {
+      .integrale-avviso { display: none; }
+      .frontespizio { padding: 30mm 0 0; break-after: page; }
+      .colophon { break-after: page; padding: 0; position: relative; }
+      .indice-integrale { break-after: page; }
+      .capitolo-integrale { break-before: page; padding-top: 18mm; border: 0 !important; margin-top: 0 !important; }
+      .note-capitolo { font-size: 0.82em; }
+    }
+  </style>
+
+  <p class="integrale-avviso">
+    <a href={urlLibro(libro.id)}>← Scheda del libro</a>
+    <a href={capitoli[0].url}>Leggi capitolo per capitolo</a>
+    <button type="button" class="bottone" onclick="window.print()" style="padding: 0.2rem 0.6rem;">Stampa</button>
+  </p>
+
+  <main class="lettore">
+    <div class="testo">
+      <section class="frontespizio">
+        <p class="autore">{d.autore}</p>
+        <h1>{d.titolo}</h1>
+        {d.sottotitolo && <p class="sottotitolo">{d.sottotitolo}</p>}
+        {(d.curatore || d.traduttore) && (
+          <p class="cura">
+            {d.traduttore && d.traduttore !== d.curatore && <>Traduzione di {d.traduttore}<br /></>}
+            {d.curatore && (d.traduttore === d.curatore ? `Traduzione e cura di ${d.curatore}` : `A cura di ${d.curatore}`)}
+          </p>
+        )}
+        <div class="editore">
+          <Image src={logo} alt="" width={128} />
+          endehors
+        </div>
+      </section>
+
+      <section class="colophon">
+        {d.titolo_originale && <p set:html={`Titolo originale: ${inline(d.titolo_originale)}`} />}
+        {d.edizione && <p set:html={inline(d.edizione)} />}
+        <p>
+          Licenza {d.licenza.nome} ({d.licenza.url}){d.licenza.testo && <span set:html={`. ${inline(d.licenza.testo)}`} />}
+        </p>
+        {d.isbn && <p>ISBN {d.isbn}</p>}
+        {d.doi && <p>DOI {d.doi}</p>}
+        {d.crediti && <p set:html={inline(d.crediti)} />}
+        <p>endehors · {new URL(urlLibro(libro.id), Astro.site).href}</p>
+      </section>
+
+      <nav class="indice-integrale">
+        <h2 style="font-size: 1rem;">Indice</h2>
+        <ol>
+          {
+            capitoli.map((v) => (
+              <li>
+                <span class="n">{numero(v)}</span>
+                <a href={`#${v.slug}`}>{v.titolo}</a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+
+      {
+        capitoli.map((v) => (
+          <article class="capitolo-integrale" id={v.slug}>
+            <header class="intestazione" style="margin-top: 0;">
+              {numero(v) && <span class="numero etichetta">{numero(v)}</span>}
+              <h1>{v.titolo}</h1>
+              {v.entry.data.sottotitolo && <p class="sottotitolo">{v.entry.data.sottotitolo}</p>}
+              {v.entry.data.autore && <p class="autore">{v.entry.data.autore}</p>}
+            </header>
+            <div class="corpo" set:html={prefissa(v.entry.rendered?.html ?? '', v.slug)} />
+          </article>
+        ))
+      }
+    </div>
+  </main>
+</Base>
