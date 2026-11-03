@@ -1,6 +1,7 @@
 ---
 import Base from './Base.astro';
 import Marchio from '../components/Marchio.astro';
+import Icona from '../components/Icona.astro';
 
 interface Props {
   titolo?: string;
@@ -20,10 +21,32 @@ const voci = [
   <div class="contenitore">
     <header class="testata">
       <Marchio />
-      <nav class="nav-sito" aria-label="Navigazione principale">
+      <button class="icona apri-menu" type="button" aria-expanded="false" aria-controls="nav-sito" aria-label="Menu">
+        <span class="se-chiuso"><Icona nome="menu" /></span><span class="se-aperto"><Icona nome="chiudi" /></span>
+      </button>
+      <nav class="nav-sito" id="nav-sito" aria-label="Navigazione principale">
         {voci.map((v) => <a href={v.href} aria-current={percorso === v.href ? 'page' : undefined}>{v.testo}</a>)}
       </nav>
     </header>
+    <script>
+      // menu a scomparsa su schermi stretti
+      const testata = document.querySelector<HTMLElement>('.testata');
+      const bottone = testata?.querySelector<HTMLButtonElement>('.apri-menu');
+      if (testata && bottone) {
+        testata.classList.add('con-menu');
+        const imposta = (aperto: boolean) => {
+          testata.classList.toggle('aperta', aperto);
+          bottone.setAttribute('aria-expanded', String(aperto));
+        };
+        bottone.addEventListener('click', () => imposta(!testata.classList.contains('aperta')));
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && testata.classList.contains('aperta')) { imposta(false); bottone.focus(); }
+        });
+        document.addEventListener('click', (e) => {
+          if (!testata.contains(e.target as Node)) imposta(false);
+        });
+      }
+    </script>
   </div>
   <main>
     <slot />

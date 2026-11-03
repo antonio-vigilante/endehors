@@ -165,6 +165,37 @@ h1, h2, h3, h4 {
 }
 .nav-sito a:hover, .nav-sito a[aria-current='page'] { color: var(--blu); }
 
+/* menu a scomparsa (hamburger) su schermi stretti; senza JavaScript resta il menu testuale */
+.icona.apri-menu { display: none; }
+.apri-menu .se-aperto, .apri-menu[aria-expanded='true'] .se-chiuso { display: none; }
+.apri-menu[aria-expanded='true'] .se-aperto { display: contents; }
+.icona.apri-menu svg { width: 1.5rem; height: 1.5rem; }
+@media (max-width: 40rem) {
+  .testata { position: relative; padding: 1.1rem 0 0.9rem; }
+  .marchio img { height: 2.6rem; }
+  .marchio span { font-size: 1.6rem; }
+  .testata.con-menu .apri-menu { display: inline-flex; }
+  .testata.con-menu .nav-sito {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 20;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    min-width: 12rem;
+    padding: 0.4rem 0;
+    background: var(--carta);
+    border: 1px solid var(--filo);
+    border-radius: 4px;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.08);
+  }
+  .testata.con-menu.aperta .nav-sito { display: flex; }
+  .testata.con-menu .nav-sito a { padding: 0.8rem 1.2rem; font-size: 0.95rem; }
+  .testata.con-menu .nav-sito a:hover { background: var(--carta-2); }
+}
+
 .piede {
   margin-top: 6rem;
   padding: 2.5rem 0 3rem;
