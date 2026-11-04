@@ -8,7 +8,7 @@ interface Props {
   immagine?: string;
   classe?: string;
 }
-const { titolo, descrizione = 'endehors — progetto culturale libertario a cura di Antonio Vigilante. Testi integrali da leggere online e scaricare.', immagine, classe } = Astro.props;
+const { titolo, descrizione = 'endehors — progetto culturale libertario a cura di Antonio Vigilante. Testi integrali da leggere online e scaricare.', immagine = '/og-endehors.png', classe } = Astro.props;
 const titoloCompleto = titolo ? `${titolo} · endehors` : 'endehors';
 const canonico = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -24,7 +24,18 @@ const canonico = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={titoloCompleto} />
     <meta property="og:description" content={descrizione} />
     <meta property="og:type" content="website" />
-    {immagine && <meta property="og:image" content={new URL(immagine, Astro.site)} />}
+    <meta property="og:site_name" content="endehors" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:url" content={canonico} />
+    <meta property="og:image" content={new URL(immagine, Astro.site)} />
+    {immagine === '/og-endehors.png' && (
+      <>
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="endehors — Officina di controeditoria" />
+      </>
+    )}
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" href="/font/texgyreadventor-bold.woff" as="font" type="font/woff" crossorigin />
