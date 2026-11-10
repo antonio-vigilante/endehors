@@ -350,6 +350,9 @@ h1, h2, h3, h4 {
 .acquista a:hover { background: var(--carta-2); color: var(--blu); }
 .riprendi { min-height: 1.4rem; font-size: 0.95rem; color: var(--tenue); }
 .riprendi a { font-style: italic; }
+.dona { display: inline-flex; align-items: center; gap: 0.5em; }
+.dona .logo-liberapay { width: 1.3em; height: 1.3em; }
+.sostieni { font-size: 0.95rem; color: var(--tenue); margin: 0 0 1.8rem; }
 .dati { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1.2rem; font-size: 0.92rem; margin: 2.2rem 0 0; }
 .dati dt { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tenue); padding-top: 0.25rem; }
 .dati dd { margin: 0; }
