@@ -1,0 +1,23 @@
+---
+import Sito from '../../layouts/Sito.astro';
+import { getTag } from '../../lib/libri';
+
+const tag = await getTag();
+---
+
+<Sito titolo="Tag" descrizione="I libri di endehors per argomento.">
+  <div class="colonna pagina">
+    <h1>Tag</h1>
+    <ul class="elenco-tag">
+      {
+        tag.map((t) => (
+          <li>
+            <a href={t.url}>{t.nome}</a>
+            <span class="conteggio">{t.libri.length === 1 ? '1 libro' : `${t.libri.length} libri`}</span>
+            <p>{t.libri.map((l) => l.data.titolo).join(' · ')}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Sito>

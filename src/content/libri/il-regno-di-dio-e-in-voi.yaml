@@ -4,6 +4,9 @@ traduttore: Sofia Behr
 curatore: Antonio Vigilante
 ordine: 1
 anno: 2023
+tag:
+  - Anarchismo
+  - Nonviolenza
 anno_originale: 1893
 copertina: ../../assets/copertine/il-regno-di-dio-e-in-voi.jpg
 citazione: >-
@@ -18,7 +21,17 @@ licenza:
 edizione: "Pubblicazione: 19 agosto 2023."
 crediti: "In copertina: Il’ja Efimovič Repin, *Ritratto di Lev Tolstoj*, 1887. Pubblico dominio. Elaborazione grafica."
 formati: Cartaceo ed ebook
-acquista: https://store.streetlib.com/filosofia/il-regno-di-dio-e-in-voi-727160/
+acquista:
+  - negozio: IBS
+    url: https://www.ibs.it/regno-di-dio-in-voi-libro-lev-tolstoj/e/9791222437347
+  - negozio: laFeltrinelli
+    url: https://www.lafeltrinelli.it/regno-di-dio-in-voi-libro-lev-tolstoj/e/9791222437347
+  - negozio: Unilibro
+    url: https://www.unilibro.it/ebook/lev-tolstoj/regno-dio-e-voi-e-book-epub/43056209
+  - negozio: Amazon
+    url: https://www.amazon.it/s?k=Il+Regno+di+Dio+%C3%A8+in+voi+Tolstoj+Vigilante
+  - negozio: StreetLib
+    url: https://store.streetlib.com/filosofia/il-regno-di-dio-e-in-voi-727160/
 download:
   epub: /download/il-regno-di-dio-e-in-voi.epub
   pdf: /download/il-regno-di-dio-e-in-voi.pdf

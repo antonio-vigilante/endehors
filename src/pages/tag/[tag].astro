@@ -1,0 +1,25 @@
+---
+import Sito from '../../layouts/Sito.astro';
+import VoceCatalogo from '../../components/VoceCatalogo.astro';
+import { getTag } from '../../lib/libri';
+
+export async function getStaticPaths() {
+  const tag = await getTag();
+  return tag.map((t) => ({ params: { tag: t.slug }, props: { t } }));
+}
+
+const { t } = Astro.props;
+---
+
+<Sito titolo={`${t.nome} — Tag`} descrizione={`I libri di endehors sul tema: ${t.nome}.`}>
+  <div class="contenitore">
+    <section class="presentazione">
+      <a class="etichetta" href="/tag/">Tag</a>
+      <h1 class="titolo-tag">{t.nome}</h1>
+    </section>
+
+    <ol class="catalogo">
+      {t.libri.map((l) => <VoceCatalogo libro={l} />)}
+    </ol>
+  </div>
+</Sito>

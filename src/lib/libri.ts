@@ -34,6 +34,23 @@ export async function getLibri(): Promise<Libro[]> {
   return libri.sort((a, b) => a.data.ordine - b.data.ordine);
 }
 
+// ---------------------------------------------------------------------------
+// Tag
+// ---------------------------------------------------------------------------
+export const slugTag = (tag: string) =>
+  tag.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+export const urlTag = (tag: string) => `/tag/${slugTag(tag)}/`;
+
+/** Tutti i tag in ordine alfabetico, ciascuno con i suoi libri (nell'ordine del catalogo) */
+export async function getTag(): Promise<{ nome: string; slug: string; url: string; libri: Libro[] }[]> {
+  const mappa = new Map<string, Libro[]>();
+  for (const l of await getLibri()) for (const t of l.data.tag ?? []) mappa.set(t, [...(mappa.get(t) ?? []), l]);
+  return [...mappa]
+    .sort(([a], [b]) => a.localeCompare(b, 'it'))
+    .map(([nome, libri]) => ({ nome, slug: slugTag(nome), url: urlTag(nome), libri }));
+}
+
 /** Nome (con eventuale numero) da mostrare per un capitolo */
 export function etichettaCapitolo(c: Capitolo): string {
   const n = c.data.numero;

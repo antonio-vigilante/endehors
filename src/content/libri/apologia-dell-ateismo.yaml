@@ -3,6 +3,8 @@ autore: Giuseppe Rensi
 curatore: Antonio Vigilante
 ordine: 3
 anno: 2021
+tag:
+  - Ateismo
 anno_originale: 1925
 copertina: ../../assets/copertine/apologia-dell-ateismo.jpg
 citazione: >-
@@ -17,7 +19,17 @@ licenza:
   testo: Il testo di Rensi è di pubblico dominio. L’Introduzione di Antonio Vigilante è rilasciata con licenza Creative Commons Attribution 4.0 International.
 edizione: "Edizione originale: Giuseppe Rensi, *Apologia dell’ateismo*, Formiggini, Modena 1925. Pubblicazione: agosto 2021."
 formati: Ebook
-acquista: https://store.streetlib.com/filosofia/apologia-dellateismo-566471/
+acquista:
+  - negozio: IBS
+    url: https://www.ibs.it/apologia-dell-ateismo-ebook-giuseppe-rensi/e/9791220835138
+  - negozio: laFeltrinelli
+    url: https://www.lafeltrinelli.it/apologia-dell-ateismo-ebook-giuseppe-rensi/e/9791220835138
+  - negozio: Unilibro
+    url: https://www.unilibro.it/ebook/giuseppe-rensi/apologia-dell-ateismo-e-book-epub/42746461
+  - negozio: Amazon
+    url: https://www.amazon.it/s?k=Apologia+dell%27ateismo+Rensi+Vigilante
+  - negozio: StreetLib
+    url: https://store.streetlib.com/filosofia/apologia-dellateismo-566471/
 download:
   epub: /download/apologia-dell-ateismo.epub
   pdf: /download/apologia-dell-ateismo.pdf

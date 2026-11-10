@@ -12,6 +12,7 @@ const props = Astro.props;
 const percorso = Astro.url.pathname;
 const voci = [
   { href: '/', testo: 'catalogo' },
+  { href: '/tag/', testo: 'tag' },
   { href: '/info/', testo: 'info' },
   { href: '/cerca/', testo: 'cerca' },
 ];
@@ -25,7 +26,7 @@ const voci = [
         <span class="se-chiuso"><Icona nome="menu" /></span><span class="se-aperto"><Icona nome="chiudi" /></span>
       </button>
       <nav class="nav-sito" id="nav-sito" aria-label="Navigazione principale">
-        {voci.map((v) => <a href={v.href} aria-current={percorso === v.href ? 'page' : undefined}>{v.testo}</a>)}
+        {voci.map((v) => <a href={v.href} aria-current={percorso === v.href ? 'page' : v.href !== '/' && percorso.startsWith(v.href) ? 'true' : undefined}>{v.testo}</a>)}
       </nav>
     </header>
     <script>

@@ -53,13 +53,32 @@ const responsabilita = [
               PDF
             </a>
           )}
-          {d.acquista && (
-            <a class="bottone" href={d.acquista} rel="external">
-              Acquista
-            </a>
+          {d.acquista && d.acquista.length > 0 && (
+            <details class="acquista">
+              <summary class="bottone">Acquista</summary>
+              <ul>
+                {d.acquista.map((n) => (
+                  <li>
+                    <a href={n.url} rel="external noopener" target="_blank">{n.negozio}</a>
+                  </li>
+                ))}
+              </ul>
+            </details>
           )}
         </div>
         <p class="riprendi" data-riprendi={libro.id}></p>
+        <script>
+          // il menu "Acquista" si chiude cliccando altrove o con Esc
+          const menu = document.querySelector<HTMLDetailsElement>('details.acquista');
+          if (menu) {
+            document.addEventListener('click', (e) => {
+              if (menu.open && !menu.contains(e.target as Node)) menu.open = false;
+            });
+            document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary')?.focus(); }
+            });
+          }
+        </script>
 
         {d.note_autori?.map((p) => <p style="font-size: 0.95rem;" set:html={inline(p)} />)}
 

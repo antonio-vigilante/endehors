@@ -163,7 +163,7 @@ h1, h2, h3, h4 {
   color: var(--inchiostro);
   text-decoration: none;
 }
-.nav-sito a:hover, .nav-sito a[aria-current='page'] { color: var(--blu); }
+.nav-sito a:hover, .nav-sito a[aria-current] { color: var(--blu); }
 
 /* menu a scomparsa (hamburger) su schermi stretti; senza JavaScript resta il menu testuale */
 .icona.apri-menu { display: none; }
@@ -234,7 +234,7 @@ h1, h2, h3, h4 {
    -------------------------------------------------------------------------- */
 .presentazione {
   max-width: 38rem;
-  margin: 3.5rem 0 4.5rem;
+  margin: 1.5rem 0 2.2rem;
   font-size: 1.3rem;
   line-height: 1.5;
 }
@@ -244,7 +244,7 @@ h1, h2, h3, h4 {
 .catalogo { list-style: none; margin: 0; padding: 0; }
 .catalogo > li {
   display: grid;
-  grid-template-columns: 9rem 1fr;
+  grid-template-columns: 9rem minmax(0, 1fr) 11rem;
   gap: 2.2rem;
   padding: 2.4rem 0;
   border-top: 1px solid var(--filo);
@@ -259,11 +259,51 @@ h1, h2, h3, h4 {
 .catalogo .sottotitolo { font-style: italic; margin: 0 0 0.9rem; color: var(--tenue); }
 .catalogo blockquote { margin: 0 0 1.1rem; font-size: 1.02rem; color: var(--inchiostro); max-width: 36rem; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; line-clamp: 4; overflow: hidden; }
 .catalogo .azioni { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+/* tag: un callout bordato in lapislazzuli per ciascun tag, a destra; sugli schermi stretti una riga discreta sotto i bottoni */
+.tag-libro { align-self: start; }
+.tag-libro ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.tag-libro a {
+  display: inline-block;
+  /* Adventor: le maiuscole toccano l'ascendente, sotto resta lo spazio delle discendenti (0,192 em):
+     il padding superiore lo compensa, così la parola appare centrata */
+  padding: 0.49em 0.8em 0.3em;
+  border: 1px solid var(--blu);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--blu);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  text-decoration: none;
+}
+.tag-libro a:hover { background: var(--blu-chiaro); }
+@media (max-width: 52rem) {
+  .catalogo > li { grid-template-columns: 9rem minmax(0, 1fr); }
+  .tag-libro { grid-column: 2; margin-top: -1.2rem; }
+  .tag-libro ul, .tag-libro li { display: inline; }
+  .tag-libro li + li::before { content: ' · '; color: var(--tenue); }
+  .tag-libro a { display: inline; padding: 0; border: 0; border-radius: 0; }
+  .tag-libro a:hover { background: none; text-decoration: underline; text-underline-offset: 0.2em; }
+}
 @media (max-width: 40rem) {
-  .catalogo > li { grid-template-columns: 5.5rem 1fr; gap: 1.2rem; }
+  .catalogo > li { grid-template-columns: 5.5rem minmax(0, 1fr); gap: 1.2rem; }
   .catalogo img { width: 5.5rem; }
   .catalogo blockquote { display: none; }
+  .tag-libro { margin-top: -0.6rem; }
 }
+
+/* pagine dei tag */
+.titolo-tag { font-size: clamp(2rem, 4vw, 2.6rem); margin: 0.6rem 0 0; }
+.presentazione a.etichetta { text-decoration: none; }
+.presentazione a.etichetta:hover { color: var(--blu); }
+.elenco-tag { list-style: none; margin: 0; padding: 0; }
+.elenco-tag > li { padding: 1.2rem 0; border-top: 1px solid var(--filo); }
+.elenco-tag a { font-family: var(--sans); font-weight: 700; font-size: 1.3rem; color: var(--blu); text-decoration: none; }
+.elenco-tag a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.elenco-tag .conteggio { margin-left: 0.6rem; font-size: 0.85rem; color: var(--tenue); }
+.elenco-tag p { margin: 0.3rem 0 0; color: var(--tenue); font-style: italic; }
 
 /* --------------------------------------------------------------------------
    Scheda del libro
@@ -285,6 +325,29 @@ h1, h2, h3, h4 {
   font-style: italic;
 }
 .scheda .azioni { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.8rem 0 0.8rem; }
+/* menu "Acquista": elenco dei negozi */
+.acquista { position: relative; }
+.acquista summary { list-style: none; }
+.acquista summary::-webkit-details-marker { display: none; }
+.acquista summary::after { content: ''; width: 0.4em; height: 0.4em; margin: -0.2em 0 0 0.15em; border: solid currentColor; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+.acquista[open] summary { background: var(--blu-chiaro); }
+.acquista[open] summary::after { margin-top: 0.2em; transform: rotate(-135deg); }
+.acquista ul {
+  position: absolute;
+  top: calc(100% + 0.3rem);
+  left: 0;
+  z-index: 10;
+  min-width: 100%;
+  margin: 0;
+  padding: 0.35rem 0;
+  list-style: none;
+  background: var(--carta);
+  border: 1px solid var(--filo);
+  border-radius: 2px;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.08);
+}
+.acquista a { display: block; padding: 0.45rem 1.05rem; font-family: var(--sans); font-size: 0.85rem; color: var(--inchiostro); text-decoration: none; white-space: nowrap; }
+.acquista a:hover { background: var(--carta-2); color: var(--blu); }
 .riprendi { min-height: 1.4rem; font-size: 0.95rem; color: var(--tenue); }
 .riprendi a { font-style: italic; }
 .dati { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1.2rem; font-size: 0.92rem; margin: 2.2rem 0 0; }

@@ -17,6 +17,8 @@ const libri = defineCollection({
       anno_originale: z.number().optional(),
       titolo_originale: z.string().optional(),
       copertina: image(),
+      /** argomenti: compaiono in home e nelle pagine /tag/ */
+      tag: z.array(z.string()).default([]),
       citazione: z.string(),
       descrizione: z.array(z.string()),
       note_autori: z.array(z.string()).optional(),
@@ -30,7 +32,8 @@ const libri = defineCollection({
       formati: z.string().optional(),
       isbn: z.string().optional(),
       doi: z.string().optional(),
-      acquista: z.string().url().optional(),
+      /** negozi in cui acquistare il libro, nell'ordine in cui compaiono nel menu */
+      acquista: z.array(z.object({ negozio: z.string(), url: z.string().url() })).optional(),
       download: z.object({
         epub: z.string().optional(),
         pdf: z.string().optional(),

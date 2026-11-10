@@ -4,6 +4,8 @@ traduttore: Antonio Vigilante
 curatore: Antonio Vigilante
 ordine: 5
 anno: 2020
+tag:
+  - Anarchismo
 titolo_originale: "*Note sur la suppression générale des partis politiques*, in S. Weil, *Écrits de Londres et dernières lettres*, Éditions Gallimard, Paris 1957."
 copertina: ../../assets/copertine/per-la-soppressione-dei-partiti-politici.jpg
 citazione: >-
@@ -20,7 +22,17 @@ edizione: "Edizione: giugno 2020."
 isbn: "9788835852933"
 doi: 10.5281/zenodo.3940129
 formati: Ebook
-acquista: https://store.streetlib.com/filosofia/per-la-soppressione-dei-partiti-politici-458988/
+acquista:
+  - negozio: IBS
+    url: https://www.ibs.it/per-soppressione-dei-partiti-politici-ebook-simone-weil/e/9788835852933
+  - negozio: laFeltrinelli
+    url: https://www.lafeltrinelli.it/per-soppressione-dei-partiti-politici-ebook-simone-weil/e/9788835852933
+  - negozio: Unilibro
+    url: https://www.unilibro.it/ebook/simone-weil/soppressione-partiti-politici-e-book-mobipocket/41405931
+  - negozio: Amazon
+    url: https://www.amazon.it/s?k=Per+la+soppressione+dei+partiti+politici+Weil+Vigilante
+  - negozio: StreetLib
+    url: https://store.streetlib.com/filosofia/per-la-soppressione-dei-partiti-politici-458988/
 download:
   epub: /download/per-la-soppressione-dei-partiti-politici.epub
   pdf: /download/per-la-soppressione-dei-partiti-politici.pdf

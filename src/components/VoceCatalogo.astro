@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import { inline, urlLibro, urlTag, getCapitoli, type Libro } from '../lib/libri';
+
+interface Props {
+  libro: Libro;
+}
+const { libro: l } = Astro.props;
+const primo = (await getCapitoli(l.id))[0]?.url;
+---
+
+<li>
+  <a href={urlLibro(l.id)} tabindex="-1" aria-hidden="true">
+    <Image src={l.data.copertina} alt="" width={288} />
+  </a>
+  <div>
+    <p class="autore">{l.data.autore}</p>
+    <h2>
+      <a href={urlLibro(l.id)}>{l.data.titolo}</a>
+    </h2>
+    {l.data.sottotitolo && <p class="sottotitolo">{l.data.sottotitolo}</p>}
+    <blockquote set:html={`“${inline(l.data.citazione)}”`} />
+    <div class="azioni">
+      <a class="bottone pieno" href={primo}>Leggi</a>
+      <a class="bottone" href={urlLibro(l.id)}>Scheda e indice</a>
+    </div>
+  </div>
+  {
+    (l.data.tag ?? []).length > 0 && (
+      <aside class="tag-libro" aria-label="Tag">
+        <ul>
+          {(l.data.tag ?? []).map((t) => (
+            <li>
+              <a href={urlTag(t)}>{t}</a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    )
+  }
+</li>
